@@ -1,0 +1,3870 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)http://language-and-engineering.hatenablog.jp/entry/20110820/p1 -->
+<html lang="ja" data-admin-domain="//blog.hatena.ne.jp" data-author="language_and_engineering" data-avail-langs="ja en" data-blog="language-and-engineering.hatenablog.jp" data-blog-host="language-and-engineering.hatenablog.jp" data-blog-is-public="1" data-blog-name="主に言語とシステム開発に関して" data-blog-owner="language_and_engineering" data-blog-uri="http://language-and-engineering.hatenablog.jp/" data-blog-uuid="6653458415123379716" data-blogs-uri-base="http://language-and-engineering.hatenablog.jp" data-brand="pro" data-data-layer="{&quot;hatenablog&quot;:{&quot;admin&quot;:{},&quot;pro&quot;:&quot;pro&quot;,&quot;page_id&quot;:&quot;entry&quot;,&quot;blog&quot;:{&quot;lang&quot;:&quot;ja&quot;,&quot;disable_ads&quot;:&quot;pro&quot;,&quot;enable_ads&quot;:&quot;false&quot;,&quot;name&quot;:&quot;\u4e3b\u306b\u8a00\u8a9e\u3068\u30b7\u30b9\u30c6\u30e0\u958b\u767a\u306b\u95a2\u3057\u3066&quot;,&quot;is_public&quot;:&quot;true&quot;,&quot;uri&quot;:&quot;http://language-and-engineering.hatenablog.jp/&quot;,&quot;is_sleeping&quot;:&quot;false&quot;,&quot;force_pc_view&quot;:&quot;false&quot;,&quot;entry_show_footer_related_entries&quot;:&quot;false&quot;,&quot;is_responsive_view&quot;:&quot;false&quot;,&quot;content_seems_japanese&quot;:&quot;true&quot;,&quot;enable_keyword_link&quot;:&quot;false&quot;,&quot;owner_name&quot;:&quot;language_and_engineering&quot;},&quot;brand&quot;:&quot;pro&quot;,&quot;analytics&quot;:{&quot;property_id&quot;:&quot;&quot;,&quot;non_sampling_property_id&quot;:&quot;&quot;,&quot;brand_property_id&quot;:&quot;&quot;,&quot;separated_property_id&quot;:&quot;UA-29716941-25&quot;},&quot;brand_tracking_category&quot;:&quot;pro&quot;,&quot;permalink_entry&quot;:{&quot;hour&quot;:&quot;0&quot;,&quot;author_name&quot;:&quot;language_and_engineering&quot;,&quot;date&quot;:&quot;2011-08-20&quot;,&quot;categories&quot;:&quot;SVN\tVMWare\tApache\tRuby on Rails\tlinux\t\u5171\u6709\u30d5\u30a9\u30eb\u30c0\t\u74b0\u5883\u69cb\u7bc9\t\u30a2\u30b9\u30ad\u30fc\u30a2\u30fc\u30c8&quot;,&quot;title&quot;:&quot;Linux\u4e0a\u306bSamba\u3067\u5171\u6709\u30d5\u30a9\u30eb\u30c0\u3092\u4f5c\u308a\uff0cWindows\u304b\u3089\u958b\u767a\u74b0\u5883\u3068\u3057\u3066\u5229\u7528\u3057\u3088\u3046 \uff08\u74b0\u5883\u69cb\u6210\u306e\u308f\u304b\u308a\u3084\u3059\u3044\u56f3\u89e3\u4ed8\u304d\uff09&quot;,&quot;uri&quot;:&quot;http://language-and-engineering.hatenablog.jp/entry/20110820/p1&quot;},&quot;router_type&quot;:&quot;blogs&quot;}}" data-device="pc" data-dont-recommend-pro="false" data-globalheader-color="b" data-globalheader-type="pc" data-has-touch-view="1" data-page="entry" data-parts-domain="https://hatenablog-parts.com" data-plus-available="1" data-pro="true" data-router-type="blogs" data-static-domain="https://cdn.blog.st-hatena.com" data-version="5aba22d09777d96b372817c8ef60c1b2" itemscope="" itemtype="http://schema.org/Article" data-initial-state="{}"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+
+  
+
+
+
+  
+
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=7; IE=9; IE=10; IE=11">
+  <title>Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して</title>
+
+  
+  <link rel="canonical" href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1">
+
+
+
+  
+  
+
+<meta itemprop="name" content="Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して">
+
+  <meta itemprop="image" content="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=4822234924&amp;Format=_SL250_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=fugayahogeo-22">
+
+
+  <meta property="og:title" content="Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して">
+<meta property="og:type" content="article">
+  <meta property="og:url" content="http://language-and-engineering.hatenablog.jp/entry/20110820/p1">
+
+  <meta property="og:image" content="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=4822234924&amp;Format=_SL250_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=fugayahogeo-22">
+
+    <meta property="og:description" content="Webアプリを開発する際，下記のような要求が出たとする。 アプリそのものは，Linux上で動作させたい。 しかし，開発作業は，Windows上で行ないたい。（ExcelとかTortoise SVNなどGUIを駆使したい） このような場合，もし共有フォルダが無いと「Windows上で編集したファイルを，いちいちLinux上に転送する」という無駄な労力がかかる。ミスも起きやすい。 しかし，「Samba」で共有フォルダを作れば，この手間はなくなる。１つのフォルダを，Windowsからも，Linuxからも利用できる。 ちょうど下の図のような開発環境を構築すればよい。 pre p{ margin:0; …">
+<meta property="og:site_name" content="主に言語とシステム開発に関して">
+
+  <meta property="article:published_time" content="1313766000">
+
+    <meta property="article:tag" content="SVN">
+    <meta property="article:tag" content="VMWare">
+    <meta property="article:tag" content="Apache">
+    <meta property="article:tag" content="Ruby on Rails">
+    <meta property="article:tag" content="linux">
+    <meta property="article:tag" content="共有フォルダ">
+    <meta property="article:tag" content="環境構築">
+    <meta property="article:tag" content="アスキーアート">
+      <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="http://ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=4822234924&amp;Format=_SL250_&amp;ID=AsinImage&amp;MarketPlace=JP&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=fugayahogeo-22">  <meta name="twitter:title" content="Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して">    <meta name="twitter:description" content="Webアプリを開発する際，下記のような要求が出たとする。 アプリそのものは，Linux上で動作させたい。 しかし，開発作業は，Windows上で行ないたい。（ExcelとかTortoise SVNなどGUIを駆使したい） このような場合，もし共有フォルダが無いと「Windows上で編集したファイルを，いちいちLinux…">  <meta name="twitter:app:name:iphone" content="はてなブログアプリ">
+  <meta name="twitter:app:id:iphone" content="583299321">
+  <meta name="twitter:app:url:iphone" content="hatenablog:///open?uri=http%3A%2F%2Flanguage-and-engineering.hatenablog.jp%2Fentry%2F20110820%2Fp1">
+  
+
+    <meta name="google-site-verification" content="G-fHV-oWkO9RMv47AnzWWapGRqhmBut40cMMApeS2BI">
+    <meta name="keywords" content="バッチ,マクロ,講義ノート,中国語,javascript,コマンドプロンプト,マクロ,システム開発,多言語学習,Android,大学,数学,物理学,PDF,ネットワークスペシャリスト">    <meta name="description" content="Webアプリを開発する際，下記のような要求が出たとする。 アプリそのものは，Linux上で動作させたい。 しかし，開発作業は，Windows上で行ないたい。（ExcelとかTortoise SVNなどGUIを駆使したい） このような場合，もし共有フォルダが無いと「Windows上で編集したファイルを，いちいちLinux上に転送する」という無駄な労力がかかる。ミスも起きやすい。 しかし，「Samba」で共有フォルダを作れば，この手間はなくなる。１つのフォルダを，Windowsからも，Linuxからも利用できる。 ちょうど下の図のような開発環境を構築すればよい。 pre p{ margin:0; …">
+
+  
+<script type="text/javascript" async="" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/recaptcha__ja.js.ダウンロード"></script><script src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/f(7).txt"></script><script type="text/javascript" async="" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/analytics.js.ダウンロード"></script><script id="facebook-jssdk" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/sdk.js.ダウンロード"></script><script src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/ca-pub-7448449738963816.js.ダウンロード"></script><script async="" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/gtm.js.ダウンロード"></script><script id="embed-gtm-data-layer-loader" data-data-layer-page-specific="{&quot;hatenablog&quot;:{&quot;blogs_permalink&quot;:{&quot;is_blog_sleeping&quot;:&quot;false&quot;,&quot;blog_hide_afc_func&quot;:&quot;true&quot;,&quot;has_related_entries_with_elasticsearch&quot;:&quot;false&quot;,&quot;is_author_pro&quot;:&quot;true&quot;,&quot;blog_struct_hide_afc&quot;:&quot;true&quot;,&quot;blog_afc_issued&quot;:&quot;false&quot;,&quot;brand_hide_afc&quot;:&quot;false&quot;,&quot;entry_afc_issued&quot;:&quot;false&quot;,&quot;blog_hide_afc_field&quot;:&quot;false&quot;}}}">
+(function() {
+  function loadDataLayer(elem, attrName) {
+    if (!elem) { return {}; }
+    var json = elem.getAttribute(attrName);
+    if (!json) { return {}; }
+    return JSON.parse(json);
+  }
+
+  var globalVariables = loadDataLayer(
+    document.documentElement,
+    'data-data-layer'
+  );
+  var pageSpecificVariables = loadDataLayer(
+    document.getElementById('embed-gtm-data-layer-loader'),
+    'data-data-layer-page-specific'
+  );
+
+  var variables = [globalVariables, pageSpecificVariables];
+
+  if (!window.dataLayer) {
+    window.dataLayer = [];
+  }
+
+  for (var i = 0; i < variables.length; i++) {
+    window.dataLayer.push(variables[i]);
+  }
+})();
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P4CXTW');</script>
+<!-- End Google Tag Manager -->
+
+
+
+
+  <link rel="shortcut icon" href="https://cdn.blog.st-hatena.com/images/favicon.ico">
+<link rel="icon" sizes="192x192" href="https://cdn.blog.st-hatena.com/images/common/meta-icon-global.png">
+
+  
+<link rel="alternate" type="application/atom+xml" title="Atom" href="http://language-and-engineering.hatenablog.jp/feed">
+<link rel="alternate" type="application/rss+xml" title="RSS2.0" href="http://language-and-engineering.hatenablog.jp/rss">
+<link rel="alternate" type="application/json+oembed" href="http://hatenablog.com/oembed?url=http%3A%2F%2Flanguage-and-engineering.hatenablog.jp%2Fentry%2F20110820%2Fp1&amp;format=json" title="oEmbed Profile of Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き）">
+<link rel="alternate" type="text/xml+oembed" href="http://hatenablog.com/oembed?url=http%3A%2F%2Flanguage-and-engineering.hatenablog.jp%2Fentry%2F20110820%2Fp1&amp;format=xml" title="oEmbed Profile of Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き）">
+  
+  <link rel="author" href="http://www.hatena.ne.jp/language_and_engineering/">
+
+
+  
+    <link rel="stylesheet" type="text/css" href="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/blog.css">
+
+    
+  <link rel="stylesheet" type="text/css" href="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/7eb8a7bf18afb6576ff636fde195242de519f1c0">
+  
+
+  
+
+  
+<script> </script>
+
+  
+<style>
+  div#google_afc_user,
+  div.google-afc-user-container,
+  div.google_afc_image,
+  div.google_afc_blocklink {
+      display: block !important;
+  }
+</style>
+
+
+  
+
+  <script src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/jquery.min.js(1).ダウンロード"></script>
+<link rel="preload" href="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/f(8).txt" as="script"><script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/f(8).txt"></script><link rel="preload" href="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/f(9).txt" as="script"><script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/f(9).txt"></script><link rel="stylesheet" type="text/css" href="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/widget-hatenadiary.css"><script defer="" type="text/javascript" charset="utf-8" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/json"></script><script type="text/javascript" charset="utf-8" async="" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/button.bf357a6ba1a5f1fa0ddb61377ae3add5.js.ダウンロード"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, "hiragino kaku gothic pro",meiryo,"ms pgothic",sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_mobile .fb_dialog_iframe{position:-webkit-sticky;top:0}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}
+.fb_customer_chat_bounce_in_v1{animation-duration:250ms;animation-name:fb_bounce_in_v1}.fb_customer_chat_bounce_out_v1{animation-duration:250ms;animation-name:fb_bounce_out_v1}.fb_customer_chat_bounce_in_v2{animation-duration:300ms;animation-name:fb_bounce_in_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2{animation-duration:300ms;animation-name:fb_bounce_out_v2;transition-timing-function:ease-in}.fb_customer_chat_bounce_in_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_in_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bounce_out_v2_mobile_chat_started{animation-duration:300ms;animation-name:fb_bounce_out_v2_mobile_chat_started;transition-timing-function:ease-in}.fb_customer_chat_bubble_pop_in{animation-duration:250ms;animation-name:fb_customer_chat_bubble_bounce_in_animation}.fb_customer_chat_bubble_animated_no_badge{box-shadow:0 3px 12px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_no_badge:hover{box-shadow:0 5px 24px rgba(0, 0, 0, .3)}.fb_customer_chat_bubble_animated_with_badge{box-shadow:-5px 4px 14px rgba(0, 0, 0, .15);transition:box-shadow 150ms linear}.fb_customer_chat_bubble_animated_with_badge:hover{box-shadow:-5px 8px 24px rgba(0, 0, 0, .2)}.fb_invisible_flow{display:inherit;height:0;overflow-x:hidden;width:0}.fb_mobile_overlay_active{background-color:#fff;height:100%;overflow:hidden;position:fixed;visibility:hidden;width:100%}@keyframes fb_bounce_in_v1{0%{opacity:0;transform:scale(.8, .8);transform-origin:bottom right}80%{opacity:.8;transform:scale(1.03, 1.03)}100%{opacity:1;transform:scale(1, 1)}}@keyframes fb_bounce_in_v2{0%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}50%{transform:scale(1.03, 1.03);transform-origin:bottom right}100%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}}@keyframes fb_bounce_in_v2_mobile_chat_started{0%{opacity:0;top:20px}100%{opacity:1;top:0}}@keyframes fb_bounce_out_v1{from{opacity:1}to{opacity:0}}@keyframes fb_bounce_out_v2{0%{opacity:1;transform:scale(1, 1);transform-origin:bottom right}100%{opacity:0;transform:scale(0, 0);transform-origin:bottom right}}@keyframes fb_bounce_out_v2_mobile_chat_started{0%{opacity:1;top:0}100%{opacity:0;top:20px}}@keyframes fb_customer_chat_bubble_bounce_in_animation{0%{bottom:6pt;opacity:0;transform:scale(0, 0);transform-origin:center}70%{bottom:18pt;opacity:1;transform:scale(1.2, 1.2)}100%{transform:scale(1, 1)}}</style></head>
+
+  <body class="page-entry enable-top-editarea customized-background-image category-SVN category-VMWare category-Apache category-Ruby-on-Rails category-linux category-共有フォルダ category-環境構築 category-アスキーアート">
+    
+    <div id="header-container">
+     <div id="sp-suggest" style="display: none;"><a id="sp-suggest-link" href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#">スマートフォン用の表示で見る</a></div>
+    </div>
+
+    <div id="globalheader-container" data-brand="hatenablog">
+  <iframe id="globalheader" height="37" frameborder="0" allowtransparency="true" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/saved_resource.html"></iframe>
+</div>
+
+
+    <div id="container">
+      <div id="container-inner">
+        <header id="blog-title" data-brand="hatenablog">
+  <div id="blog-title-inner">
+    <div id="blog-title-content">
+      <h1 id="title"><a href="http://language-and-engineering.hatenablog.jp/">主に言語とシステム開発に関して</a></h1>
+      
+    </div>
+  </div>
+</header>
+
+        
+  <div id="top-editarea">
+    <div class="header_ggle_ad">
+
+<div class="my_ad_label_header">スポンサーリンク</div>
+
+<script async="" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/f(10).txt"></script>
+<!-- lae_pc_header -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-7448449738963816" data-ad-slot="5576499052" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><iframe width="728" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;width:728px;height:90px;" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/saved_resource(1).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+  </div>
+
+
+        
+  
+
+
+        
+
+
+
+
+<div id="content" class="hfeed">
+  <div id="content-inner">
+    <div id="wrapper">
+      <div id="main">
+        <div id="main-inner">
+          
+
+
+          
+  
+  <!-- google_ad_section_start -->
+  <!-- rakuten_ad_target_begin -->
+  
+  
+  
+
+  
+
+  
+    
+      
+        <article class="entry hentry js-entry-article date-first autopagerize_page_element chars-16000 words-1200 mode-hatena entry-odd" id="entry-6653458415123381929" data-keyword-campaign="" data-uuid="6653458415123381929" data-publication-type="entry">
+  <div class="entry-inner">
+    <header class="entry-header">
+  
+    <div class="date entry-date first">
+    <a href="http://language-and-engineering.hatenablog.jp/archive/2011/08/20" rel="nofollow">
+      <time pubdate="" datetime="2011-08-19T15:00:00Z" title="2011-08-19T15:00:00Z">
+        <span class="date-year">2011</span><span class="hyphen">-</span><span class="date-month">08</span><span class="hyphen">-</span><span class="date-day">20</span>
+      </time>
+    </a>
+  </div>
+  <h1 class="entry-title">
+  <a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1" class="entry-title-link bookmark">Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き）</a>
+</h1>
+
+  
+  
+
+  <div class="entry-categories categories">
+    
+    <a href="http://language-and-engineering.hatenablog.jp/archive/category/SVN" class="entry-category-link category-SVN">SVN</a>
+    
+    <a href="http://language-and-engineering.hatenablog.jp/archive/category/VMWare" class="entry-category-link category-VMWare">VMWare</a>
+    
+    <a href="http://language-and-engineering.hatenablog.jp/archive/category/Apache" class="entry-category-link category-Apache">Apache</a>
+    
+    <a href="http://language-and-engineering.hatenablog.jp/archive/category/Ruby%20on%20Rails" class="entry-category-link category-Ruby on Rails">Ruby on Rails</a>
+    
+    <a href="http://language-and-engineering.hatenablog.jp/archive/category/linux" class="entry-category-link category-linux">linux</a>
+    
+    <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%85%B1%E6%9C%89%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80" class="entry-category-link category-共有フォルダ">共有フォルダ</a>
+    
+    <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89" class="entry-category-link category-環境構築">環境構築</a>
+    
+    <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A2%E3%82%B9%E3%82%AD%E3%83%BC%E3%82%A2%E3%83%BC%E3%83%88" class="entry-category-link category-アスキーアート">アスキーアート</a>
+    
+  </div>
+
+
+  
+  <div class="customized-header">
+    <div class="entry-header-html"><div id="entry-top-hatebu-num">
+<a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20110820/p1">
+<img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/p1"> 
+</a>
+</div></div>
+  </div>
+
+
+  
+
+</header>
+
+    
+
+    <div class="entry-content">
+  
+    <p>Webアプリを開発する際，下記のような要求が出たとする。</p>
+
+    <blockquote>
+        
+<ul>
+<li>アプリそのものは，<font color="blue"><span data-unlink="">Linux上で動作</span></font>させたい。</li>
+</ul>
+<ul>
+<li>しかし，<font color="blue"><span data-unlink="">開発作業は，Windows上</span></font>で行ないたい。（ExcelとかTortoise SVNなどGUIを駆使したい）</li>
+</ul>
+    <div class="requote-button js-requote-button">
+    <button class="requote-button-btn tipsy-top" title="引用する"><i class="blogicon-quote"></i></button>
+  </div></blockquote>
+<p><br>
+このような場合，もし共有フォルダが無いと</p><p>「<font color="red"><span data-unlink="">Windows上で編集したファイルを，いちいちLinux上に転送</span></font>する」</p><p>という無駄な労力がかかる。ミスも起きやすい。</p><br>
+<br>
+<p>しかし，「Samba」で共有フォルダを作れば，この手間はなくなる。</p><p>１つのフォルダを，Windowsからも，Linuxからも利用できる。</p><br>
+<p>ちょうど下の図のような開発環境を構築すればよい。</p><p><style>
+
+pre p{
+  margin:0;
+  font-family: monospace; line-height:0.5;
+}
+
+</style><br>
+</p><pre style="font-family: monospace;"><p></p><p>　┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓<br>
+　┃Linux（仮想マシン） 　　　　　　　　　　　　　　　　　　　　　　┃<br>
+　┃　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　┃<br>
+　┃　┌─────────┐　　　　　　　　　　　　　　　　　　　　┃<br>
+　┃　│　　　Samba　　　 │　　　　　　　　　　　　　　　　　　　　┃<br>
+　┃　└─────────┘　　　公開　　　┌─────────┐　┃<br>
+　┃　　　　　↓ 共有設定 　　ディレクトリ　│　　 Apache 　　　│　┃<br>
+　┃　┌─────────┐　 として参照 　│　（Webサーバ） 　│　┃<br>
+　┃　│　 （Linuxの 　　 │←───────│<a href="http://guest-addr/">http://guest-addr</a> │　┃<br>
+　┃　│　　 ﾌｧｲﾙｼｽﾃﾑ） 　│　　　　　　　　└─────────┘　┃<br>
+　┃　│　　　　　　　　　│　　　　　　　　　　　　　↑　　　　　　┃<br>
+　┗━│　　　　　　　　　│━━━━━━━━━━━━━│━━━━━━┛<br>
+　　　│ [★共有フォルダ] │　　　　↑　　　　　　　　│<br>
+　　　│　ソースコードや　│　　　　：OSを仮想化　　　│Webアプリを<br>
+　　　│　ﾄﾞｷｭﾒﾝﾄを格納 　│　　　　：　　　　　　　　│テスト<br>
+　┏━│　　　　　　　　　│━━━━：━━━━━━━━│━━━━━━┓<br>
+　┃　│　　　　　　　　　│　　　　：　　　　　　　　│　　　　　　┃<br>
+　┃　│（ﾈｯﾄﾜｰｸﾄﾞﾗｲﾌﾞ　　│　┌─────┐　　　┌──────┐　┃<br>
+　┃　│　として割り当て）│　│　VMWare　│ 管理 │　　　　　　│　┃<br>
+　┃　└─────────┘　│ Server 2 │←──│ Webブラウザ│　┃<br>
+　┃　　　　　 ↑ ﾜｰｷﾝｸﾞｺﾋﾟｰ　└─────┘　　　│　　　　　　│　┃<br>
+　┃　┌─────────┐　　　　　　　　　　　│　　　　　　│　┃<br>
+　┃　│　 Tortoise SVN 　│　　　　　　　　　　　│　　　　　　│　┃<br>
+　┃　└─────────┘　　　　　　　　　　　│　　　　　　│　┃<br>
+　┃　　　ｺﾐｯﾄ↓↑ ﾁｪｯｸｱｳﾄ　　　　　　　　　　　　│　　　　　　│　┃<br>
+　┃　┌─────────┐　　　WebDAVで　　　　│　　　　　　│　┃<br>
+　┃　│　　　Apache　　　│　　　　閲覧　　　　　│　　　　　　│　┃<br>
+　┃　│　（ﾘﾎﾟｼﾞﾄﾘｻｰﾊﾞ） │←──────────│　　　　　　│　┃<br>
+　┃　│ <a href="http://host-addr/">http://host-addr</a> │　　　　　　　　　　　│　　　　　　│　┃<br>
+　┃　└─────────┘　　　　　　　　　　　└──────┘　┃<br>
+　┃　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　┃<br>
+　┃Windowsマシン 　　　　　　　　　　　　　　　　　　　　　　　　　┃<br>
+　┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛<br>
+<br>
+</p></pre><p></p><br>
+<p>図の補足：</p>
+
+    <blockquote>
+        <p>Linux上の共有フォルダ（★印）は，</p>
+
+<ul>
+<li><font color="blue"><span data-unlink="">Linux上では，Webアプリ</span></font>としてサーバが読み取る。</li>
+<li><font color="blue"><span data-unlink="">Windows上では，開発資材</span></font>として自由に編集・加工可能。「Tortoise SVN」などのGUIで管理可能。</li>
+</ul><p><br>
+また，Linux側のsshdは，Windows側の「Putty」や「WinSCP」などのsshクライアントと通信可能。</p><br>
+<p>ついでに，Windows側のOSはVistaを想定。<br>
+また，Apache上で動作するWebアプリケーションはRuby on Railsを想定。</p>
+
+    </blockquote>
+<p><br>
+以下は，このような環境を構築する手順。</p><br>
+<p>構築手順：</p><p><a name="top_menu"></a></p>
+
+    <blockquote>
+        
+<ul>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#SetupVMWareServerAndApache"> （１）Windows上にVMWare Server 2を導入し，ゲストOS上でWebサーバを構築</a></li>
+</ul>
+<ul>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#SetupTortoiseSVNAndRepositoryServer"> （２）Windows上にTortoise SVNを導入し，SVNリポジトリサーバを構築</a></li>
+</ul>
+<ul>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#SetupSambaOnLinux">（３） Linux上でSambaにより共有フォルダを作成し，ゲストとホストから利用</a>
+<ul>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#InstallSambaOnLinux">（３−１） Sambaのインストール</a></li>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#CreateSharedFolderOnLinux">（３−２） 共有フォルダを作成</a></li>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#CreateSharedFolderUserAccountsOnLinux">（３−３） 共有フォルダアクセス用のユーザを作成</a></li>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#StartSambaDaemonOnLinux">（３−４） 共有開始</a></li>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#SambaSharingTest">（３−５） 共有フォルダの動作確認</a></li>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#UseSambaSharedDirFromWindows">（３−６） 共有フォルダをWindows上で開発環境にする</a></li>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#RunWebappOnSharedSambaDir">（３−７） 共有フォルダにLinux上でWebアプリを置いて動かす</a></li>
+</ul></li>
+</ul>
+<ul>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#supplement"> 補足</a></li>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#supplement2"> 補足２</a></li>
+<li><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#vmNATinsteadOfBridge"> 補足３：仮想マシンのネットワークアダプタとして，BridgeではなくNATを選択したい場合</a></li>
+</ul>
+    </blockquote>
+<p></p><div style="height:0px;position:relative;top:-15px;font-size:10px;text-align:right;padding-right:15px"><span style="color:gray;">※↑</span> <a href="http://name-of-this-site.org/func/GeneratePageTocForHatenaBlog/" target="mokujigen">もくじジェネレータ</a> <span style="color:gray;">で自動生成</span></div><p></p><p></p><table class="table_amaf_tags"><tbody><tr><td><a rel="nofollow" href="http://www.amazon.co.jp/gp/product/4822234002/ref=as_li_qf_sp_asin_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=4822234002&amp;linkCode=as2&amp;tag=jrbzjjbclae-22"><img border="0" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/q"></a><img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/ir" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"></td><td><a rel="nofollow" href="http://www.amazon.co.jp/gp/product/4822234924/ref=as_li_qf_sp_asin_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=4822234924&amp;linkCode=as2&amp;tag=jrbzjjbclae-22"><img border="0" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/q(1)"></a><img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/ir(1)" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"></td><td><a rel="nofollow" href="http://www.amazon.co.jp/gp/product/4774144053/ref=as_li_qf_sp_asin_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=4774144053&amp;linkCode=as2&amp;tag=jrbzjjbclae-22"><img border="0" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/q(2)"></a><img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/ir(2)" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"></td></tr></tbody></table><p></p><p><a name="SetupVMWareServerAndApache"></a></p>
+
+<div class="section">
+    <h4>（１）Windows上にVMWare Server 2を導入し，ゲストOS上でWebサーバを構築</h4>
+    <p>下記の記事を参照。</p>
+
+    <blockquote>
+        <p>CentOS 5.6上で Apache＋Passenger＋Ruby on Rails 1.2 を動作させる手順 （仮想マシン上に，レガシーRailsの実運用環境を構築）<br>
+<a href="http://language-and-engineering.hatenablog.jp/entry/20110814/p1">http://language-and-engineering.hatenablog.jp/entry/20110814/p1</a></p>
+
+<ul>
+<li>本稿ではRailsを動かすので全手順の網羅が望ましいが，最低限であればVMとApacheだけでもよい。</li>
+</ul>
+    </blockquote>
+<p>なお上記ページにも掲載されているが，開発環境なので chkconfig iptables off しておく事を推奨。</p><br>
+<p>また，ホストとゲストは同一のネットワーク上に存在すること。<br>
+（ネットワークアダプタとしてBridge接続を利用）</p><p>２マシン間でIPアドレスのサブネットが異なると，共有フォルダ構築時には余計な心配や手間やミスのもとになるため。</p><p>NATの場合は末尾の補足３を参照。</p><br>
+<p>ちなみに，VMWare Playerでも別にOK。</p><p>※ただし，Windows7かつVMWare PlayerかつNAT接続，という悪条件が３つそろってしまうと，問題が起きる。</p>
+
+    <blockquote>
+        <p>Windows7上でVMware PlayerのNATを使う方法<br>
+<a class="sk_shortened" href="http://blog.cluefinder.net/archives/2009/07/26/windows7_vmware_na.html">http://blog.cluefinder.net/archives/2...</a><br>
+</p>
+
+    </blockquote>
+<p><br>
+</p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="SetupTortoiseSVNAndRepositoryServer"></a><p></p>
+
+</div>
+<div class="section">
+    <h4>（２）Windows上にTortoise SVNを導入し，SVNリポジトリサーバを構築</h4>
+    <p>下記の記事を参照。</p>
+
+    <blockquote>
+        <p>Windows Vista上に Apache＋Subversion＋Tortoise SVN をインストールして，ネットワーク越しにリポジトリを利用できるようにする手順<br>
+<a href="http://language-and-engineering.hatenablog.jp/entry/20110723/p1">http://language-and-engineering.hatenablog.jp/entry/20110723/p1</a></p>
+
+<ul>
+<li>WindowsにXAMPPとTortoise SVNを入れたのち，subversionとApacheが連携できるようにする。</li>
+</ul>
+    </blockquote>
+<p><br>
+</p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="SetupSambaOnLinux"></a><p></p>
+
+</div>
+<div class="section">
+    <h4>（３）Linux上でSambaにより共有フォルダを作成し，ゲストとホストから利用</h4>
+    <p>ここからが，本稿の本論。</p><br>
+<p><a name="InstallSambaOnLinux"></a></p>
+
+</div>
+<div class="section">
+    <h4>（３−１）Sambaのインストール</h4>
+    <p>Sambaをインストール。</p>
+<pre class="code lang-sh" data-lang="sh" data-unlink=""><span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> yum <span class="synStatement">install</span> samba
+
+〜〜
+
+Complete!
+
+<span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> which smbd
+/usr/sbin/smbd
+<span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> smbd <span class="synSpecial">--version</span>
+Version 3.0.33-3.29.el5_6.2
+
+<span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> /etc/init.d/smb <span class="synStatement">status</span>
+smbd は停止しています
+nmbd は停止しています
+</pre><p><br>
+自動起動の設定もする。</p>
+<pre class="code lang-sh" data-lang="sh" data-unlink=""><span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> chkconfig smb on
+
+<span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> chkconfig <span class="synSpecial">--list</span> smb
+smb             <span class="synConstant">0</span>:off   <span class="synConstant">1</span>:off   <span class="synConstant">2</span>:on    <span class="synConstant">3</span>:on    <span class="synConstant">4</span>:on    <span class="synConstant">5</span>:on    <span class="synConstant">6</span>:off
+</pre><p><br>
+これで，Sambaの設定を開始するための環境が整った。</p><br>
+<p></p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="CreateSharedFolderOnLinux"></a><p></p>
+
+<div class="section">
+    <h5>（３−２）共有フォルダを作成</h5>
+    <p>まずはコンソール上で，共有すべきディレクトリを作成。</p><p>ダミーファイルも作っておく。<br>
+<br>
+</p>
+<pre class="code lang-sh" data-lang="sh" data-unlink=""><span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> <span class="synStatement">mkdir</span> /usr/<span class="synStatement">local</span>/work
+
+<span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> <span class="synStatement">echo</span><span class="synConstant"> testdayo </span><span class="synStatement">&gt;</span> /usr/<span class="synStatement">local</span>/work/hoge
+
+<span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> <span class="synStatement">chmod</span> <span class="synSpecial">-R</span> <span class="synConstant">777</span> /usr/<span class="synStatement">local</span>/work
+</pre><p><br>
+次に，このフォルダを共有する。</p><br>
+<p>/etc/samba/smb.conf という設定ファイルを取得し，下記のように丸ごと書き換え。（UTF8）</p><p>※余計なオプション項目を残すとトラブルの元になりやすいので，思い切って削除する。</p>
+<pre class="code lang-conf" data-lang="conf" data-unlink="">[global]
+   workgroup = WORKGROUP
+   dos charset = CP932
+   netbios name = DEV_SHARE
+   server string = Samba Server Version %v
+   passdb backend = tdbsam
+   ldap ssl = no
+   hosts allow = 192.168.100.0/24
+   cups options = raw
+   
+   <span class="synComment"># ファイル作成時のパーミッション</span>
+   create mask = 0777
+   force create mode = 0777
+   security mask = 0777
+   force security mode = 0777
+
+   <span class="synComment"># ディレクトリ作成時のパーミッション</span>
+   directory mask = 0777
+   force directory mode = 0777
+   directory security mask = 0777
+   force directory security mode = 0777
+
+[share_for_dev]
+   path = /usr/local/work
+   public = yes
+   writable = yes
+   printable = no
+</pre><p><br>
+全体に関わる設定（global）</p>
+
+<ul>
+<li>Windows側のファイルシステムの文字コードとして，CP932(Shift-JIS)を指定。</li>
+<li>この共有サーバが，WindowsのNetBIOSネットワーク上で「DEV_SHARE」というNetBIOS名を持つ事にする。</li>
+<li>共有を許可するIPアドレスとして，192.168.100.* のみを指定。（アスタリスク記法ではなくサブネットマスク記法である点に注意。「192.168.100.」のような，尻切れトンボ記法でもOK）</li>
+</ul><p>個別の共有設定：</p>
+
+<ul>
+<li>share_for_devという名前の共有名で，/usr/local/workを共有する。</li>
+<li>writableで書き込み可能にする。</li>
+</ul><p><br>
+これを /etc/samba/smb.conf に保存。</p><br>
+<p>設定ファイルの妥当性を検証：</p>
+<pre class="code lang-sh" data-lang="sh" data-unlink=""><span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> which testparm
+/usr/bin/testparm
+
+<span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> testparm /etc/samba/smb.conf
+Load smb config files from /etc/samba/smb.conf
+Processing section <span class="synStatement">"</span><span class="synConstant">[share_for_dev]</span><span class="synStatement">"</span>
+Loaded services file OK.
+WARNING: You have some share names that are longer than <span class="synConstant">12</span> characters.
+These may not be accessible to some older clients.
+<span class="synPreProc">(</span><span class="synSpecial">Eg. Windows9x, WindowsMe, and smbclient prior to Samba 3.0.</span><span class="synPreProc">)</span>
+Server role: ROLE_STANDALONE
+Press enter to see a dump of your service definitions
+</pre><p><br>
+設定ファイルの詳細については，下記ページを参考：</p>
+
+    <blockquote>
+        <p>Sambaの基本設定<br>
+<a class="sk_shortened" href="http://www.jitaku-server.net/samba_setup.html">http://www.jitaku-server.net/samba_se...</a></p>
+
+<ul>
+<li>Vine Linuxなのでapt-getを利用</li>
+<li>カッコで囲まれた部分は共有名となる</li>
+</ul><p><br>
+smb.conf    Samba の設定ファイル<br>
+<a class="sk_shortened" href="http://www.samba.gr.jp/project/translation/3.3/htmldocs/manpages-3/smb.conf.5.html">http://www.samba.gr.jp/project/transl...</a></p><br>
+<p>smb.confの設定<br>
+<a class="sk_shortened" href="http://www.confrage.com/linux/CentOS/samba/smb.conf/smb.conf.html">http://www.confrage.com/linux/CentOS/...</a></p>
+
+<ul>
+<li>パーミッション関連</li>
+</ul>
+    </blockquote>
+<p><br>
+これで，共有すべきフォルダが整った。</p><br>
+<p></p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="CreateSharedFolderUserAccountsOnLinux"></a><p></p>
+
+</div>
+</div>
+<div class="section">
+    <h4>（３−３）共有フォルダアクセス用のユーザを作成</h4>
+    <p>Windowsのアカウントと同じユーザ名で，Linux上にもユーザを作成する。</p><p>また，Windowsのアカウントと同じパスワードで，Sambaに該当ユーザを登録する。</p><br>
+<p>かりにWindows上では「hogeyama」というアカウント名で，パスワードが「hogeword」だったとしよう。</p>
+<pre class="code lang-sh" data-lang="sh" data-unlink=""><span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> useradd hogeyama
+
+<span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> smbpasswd <span class="synSpecial">-a</span> hogeyama
+New SMB password:
+Retype new SMB password:
+
+<span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> pdbedit <span class="synSpecial">-L</span>
+hogeyama:<span class="synConstant">501</span>:
+</pre><p>参考：</p>
+
+    <blockquote>
+        <p>Sambaで始めるWindowsファイルサーバー入門<br>
+<a class="sk_shortened" href="http://www.samba.gr.jp/doc/contrib/begin_samba2.0.html">http://www.samba.gr.jp/doc/contrib/be...</a></p>
+
+<ul>
+<li>基本的な考え方ですが、<font color="blue"><span data-unlink="">Linux上のユーザー名とWindowsネットワークのユーザー名（Windowsを起動した時に入力するユーザー名の事）は同一のものに</span></font>しましょう</li>
+<li>また、WindowsをSambaサーバーに接続させるには、Samba用のパスワードを設定しないといけませんが、このパスワードも、Windowsネットワークにログオンする際のパスワードと同一のものにしておけば、Sambaサーバーにアクセスする際にいちいちパスワードを入力しないで済みます</li>
+<li>ですから、ユーザー名、SambaパスワードともにWindows起動時に入力するものと同じにしておくことを推奨します</li>
+</ul><p><br>
+Sambaの基本設定<br>
+<a class="sk_shortened" href="http://www.jitaku-server.net/samba_setup.html">http://www.jitaku-server.net/samba_se...</a></p>
+
+<ul>
+<li>Sambaによるファイルサーバーを使うために新しいユーザーを追加する場合、そのユーザーがLinuxにログインする必要がないなら、「useradd -s /sbin/nologin ユーザー名」のようにして、ログインができないように設定しておくと安全性が高まる</li>
+</ul><p><br>
+ユーザ追加・削除、グループの設定 [Fedora, RedHat, CentOS]<br>
+<a href="http://memorva.jp/memo/linux/user.php">http://memorva.jp/memo/linux/user.php</a></p>
+
+<ul>
+<li>間違えた場合は userdel -r ユーザ名 でユーザ削除</li>
+</ul><p><br>
+pdbedit    SAM データベースを管理する<br>
+<a class="sk_shortened" href="http://www.samba.gr.jp/project/translation/3.0/htmldocs/pdbedit.8.html">http://www.samba.gr.jp/project/transl...</a></p>
+
+<ul>
+<li>pdbedit プログラムは <font color="blue"><span data-unlink="">SAMデータベース（Security Accounts Manager Database）</span></font>内に保持されるユーザーアカウントを管理するために利用され、 root だけが実行できる。Sambaに含まれるツール。</li>
+<li>-L : データベースのすべてのユーザーアカウントを一覧表示する</li>
+<li>-a : ユーザーをデータベースに追加する</li>
+<li>-x : データベースからアカウントを削除する</li>
+</ul>
+    </blockquote>
+<p><br>
+これで，共有フォルダにアクセスする体制が整った。</p><br>
+<p></p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="StartSambaDaemonOnLinux"></a><p></p>
+
+</div>
+<div class="section">
+    <h4>（３−４）共有開始</h4>
+    <p>シェル上で，Sambaのサービスを開始。</p>
+<pre class="code" data-lang="" data-unlink="">
+[root@localhost ~] /etc/init.d/smb start
+SMB サービスを起動中:                                      [  OK  ]
+NMB サービスを起動中:                                      [  OK  ]
+</pre><p><br>
+これで，共有が開始された。</p><br>
+<p></p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="SambaSharingTest"></a><p></p>
+
+</div>
+<div class="section">
+    <h4>（３−５）共有フォルダの動作確認</h4>
+    <p>まず，Linux上での動作確認。</p><p><font color="blue"><span data-unlink="">smbclientコマンド</span></font>を使って，共有フォルダに接続し，</p><p>Sambaのコマンドを打ち込んでファイルのリストを取得できる事を確認する。<br>
+<br>
+</p>
+<pre class="code lang-sh" data-lang="sh" data-unlink=""><span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> su - hogeyama
+
+<span class="synStatement">[</span>hogeyama@localhost ~<span class="synStatement">]</span>$ smbclient //DEV_SHARE/share_for_dev
+Password:
+<span class="synIdentifier">Domain</span>=<span class="synStatement">[</span>DEV_SHARE<span class="synStatement">]</span> <span class="synIdentifier">OS</span>=<span class="synStatement">[</span>Unix<span class="synStatement">]</span> <span class="synIdentifier">Server</span>=<span class="synStatement">[</span>Samba 3.0.33-3.29.el5_6.2<span class="synStatement">]</span>
+
+smb: \<span class="synStatement">&gt;</span> <span class="synStatement">pwd</span>
+Current directory is <span class="synSpecial">\\</span>DEV_SHARE\share_for_dev<span class="synStatement">\</span>
+
+smb: \<span class="synStatement">&gt;</span> <span class="synStatement">ls</span>
+ <span class="synStatement"> . </span>                                  D        <span class="synConstant">0</span>  Tue Aug <span class="synConstant">16</span> <span class="synConstant">14</span>:<span class="synConstant">14</span>:<span class="synConstant">26</span> <span class="synConstant">2011</span>
+  ..                                  D        <span class="synConstant">0</span>  Tue Aug <span class="synConstant">16</span> <span class="synConstant">14</span>:<span class="synConstant">14</span>:<span class="synConstant">16</span> <span class="synConstant">2011</span>
+  hoge                                A        <span class="synConstant">9</span>  Tue Aug <span class="synConstant">16</span> <span class="synConstant">14</span>:<span class="synConstant">14</span>:<span class="synConstant">52</span> <span class="synConstant">2011</span>
+
+                <span class="synConstant">38752</span> blocks of size 262144. <span class="synConstant">25803</span> blocks available
+
+smb: \<span class="synStatement">&gt;</span> <span class="synStatement">mkdir</span> boo
+
+smb: \<span class="synStatement">&gt;</span> <span class="synStatement">ls</span>
+ <span class="synStatement"> . </span>                                  D        <span class="synConstant">0</span>  Tue Aug <span class="synConstant">16</span> <span class="synConstant">15</span>:<span class="synConstant">10</span>:<span class="synConstant">47</span> <span class="synConstant">2011</span>
+  ..                                  D        <span class="synConstant">0</span>  Tue Aug <span class="synConstant">16</span> <span class="synConstant">14</span>:<span class="synConstant">14</span>:<span class="synConstant">16</span> <span class="synConstant">2011</span>
+  hoge                                A        <span class="synConstant">9</span>  Tue Aug <span class="synConstant">16</span> <span class="synConstant">14</span>:<span class="synConstant">14</span>:<span class="synConstant">52</span> <span class="synConstant">2011</span>
+  boo                                 D        <span class="synConstant">0</span>  Tue Aug <span class="synConstant">16</span> <span class="synConstant">15</span>:<span class="synConstant">10</span>:<span class="synConstant">47</span> <span class="synConstant">2011</span>
+
+                <span class="synConstant">38752</span> blocks of size 262144. <span class="synConstant">25803</span> blocks available
+
+smb: \<span class="synStatement">&gt;</span> ! <span class="synStatement">less</span> hoge
+hoge: そのようなファイルやディレクトリはありません
+
+smb: \<span class="synStatement">&gt;</span> ! <span class="synStatement">pwd</span>
+/home/hogeyama
+
+smb: \<span class="synStatement">&gt;</span> <span class="synStatement">exit</span>
+</pre><div class="pc_middle_ggle_ad">
+
+<div class="my_ad_label">スポンサーリンク</div>
+
+<script async="" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/f(10).txt"></script>
+<!-- lae_pc_middle_1 -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-7448449738963816" data-ad-slot="5904780652" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><iframe width="336" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;width:336px;height:280px;" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/saved_resource(2).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+<script async="" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/f(10).txt"></script>
+<!-- lae_pc_middle_2 -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-7448449738963816" data-ad-slot="7381513852" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><iframe width="336" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;width:336px;height:280px;" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/saved_resource(3).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div><p>「!」のあとには，Linuxの通常のコマンド（bash）が使える。</p><p>上記の実行結果をみると，共有フォルダ上のファイルを</p><p>smbclientのセッション内でlessで閲覧する事はできないようだ。</p><br>
+<p>しかし，フォルダ内のファイル一覧は取得できたし，</p><p>セッション内で新規フォルダ（boo）の作成にも成功しているので，</p><p>共有フォルダへの接続に成功した事になる。</p><br>
+<p>参考：</p>
+
+    <blockquote>
+        <p>sambaで共有ディレクトリを作成するには<br>
+<a class="sk_shortened" href="http://www.tempest.jp/linux/fedora/documents/text152.html">http://www.tempest.jp/linux/fedora/do...</a></p><br>
+<p>管理者必見！ ネットワーク・コマンド集　smbclientコマンド <br>
+<a class="sk_shortened" href="http://itpro.nikkeibp.co.jp/article/COLUMN/20070618/275055/">http://itpro.nikkeibp.co.jp/article/C...</a><br>
+</p>
+
+    </blockquote>
+<p>※もしsmbclientからの接続に失敗する場合，smb.conf中でのIPアドレス制限に引っ掛かっていないかチェックしてみよう。<br>
+Windowsマシンに対してはアクセスが許可されていても，自マシン（Linux）のIPアドレスに対してアクセスを許可するのを忘れていた，なんてケースがある。<br>
+面倒なら，最悪「hosts allow = 192.」とだけ書いておけば，最低限のセキュリティは確保される。</p><p>※パーミッション設定を忘れていたり，共有サーバ名が長かったりすると，下記のようなエラーになる。</p>
+
+    <blockquote>
+        <p>Connection to （共有サーバ名） failed (Error NT_STATUS_BAD_NETWORK_NAME)</p>
+
+    </blockquote>
+<p></p><p>次に，Windows上での動作確認。</p><p>マイコンピュータを右クリックし，プロパティから，PCの所属するワークグループが<br>
+「WORKGROUP」である事を確認。</p><br>
+<p>Windowsのエクスプローラ上で，ロケーションバーに下記のUNCパスを入力してアクセス。</p>
+
+<ul>
+<li>\\LinuxのIPアドレス</li>
+</ul><p>すると，「share_for_dev」というフォルダと「プリンタ」が表示されるはずだ。</p><p>WindowsとSambaでアカウント情報を統一しておいたおかげで，<br>
+認証ダイアログが出ずにアクセスできた，という事に注意。</p><br>
+<p>※もしアクセスできない場合は，<br>
+（１）で述べた iptables の設定解除を行なっていないので<br>
+アクセスが弾かれたのだと思われる。</p><p>そうでない場合は，Windows Vistaの<font color="blue"><span data-unlink="">セキュリティポリシー</span></font>の設定変更が必要かもしれない。</p>
+
+    <blockquote>
+        <p>VistaマシンでNAS(Samba)へ接続できない<br>
+<a class="sk_shortened" href="http://mroom.cool.ne.jp/nikki/archives/000217.html">http://mroom.cool.ne.jp/nikki/archive...</a></p>
+
+<ul>
+<li>Vistaの認証セキュリティレベルが高く設定されているため</li>
+<li>LAN Manager認証レベルを「LMとNTLMを送信する-ネゴシエーションの場合 NTLMv2セッションセキュリティを使う」に変更</li>
+</ul><p><br>
+VistaマシンでWebdavにつながらない<br>
+<a class="sk_shortened" href="http://joint.aichi-u.ac.jp/mt3/2007/05/26_124857.php">http://joint.aichi-u.ac.jp/mt3/2007/0...</a></p>
+
+<ul>
+<li>NASなどのネットワークドライブにつながらない場合</li>
+<li>Vista　HomeなどVistaのエディションによっては、ローカルセキュリティポリシーの変更は、レジストリを編集する必要がある</li>
+</ul>
+    </blockquote>
+<p></p><p>フォルダが表示できたので，さっそく「share_for_dev」というフォルダを開く。</p><p>「hoge」というダミーファイルが存在するので，エディタで開いて編集し，保存してみよう。</p><p>また，新規フォルダやファイルも作ってみよう。</p><p>それらが正常に完了すれば，Windowsから共有フォルダ上での作業が可能になった，という事だ。</p><br>
+<br>
+<p>※もしここで「他のプロセスが使用中です」みたいなエラーメッセージが出て<br>
+ファイルに書き込めない場合，ファイルアクセスの権限が不足している。</p><p>（３−２）で chmod -R 777 をし忘れたのかもしれない。</p><p>そうでなければ，SELinuxが悪さをしている可能性がある。<br>
+だとすると， /etc/selinux/config の内容を下記のように修正すればよい。</p>
+<pre class="code" data-lang="" data-unlink="">SELINUX=enforcing
+
+↓
+
+SELINUX=disabled
+</pre><p>（※このファイルは，/etc/sysconfig/selinux からシンボリックリンクを張られている。）</p><p>参考：</p>
+
+    <blockquote>
+        <p>CentOS 5.6上で Apache＋Passenger＋Ruby on Rails 1.2 を動作させる手順 （仮想マシン上に，レガシーRailsの実運用環境を構築）<br>
+<a href="http://language-and-engineering.hatenablog.jp/entry/20110814/p1">http://language-and-engineering.hatenablog.jp/entry/20110814/p1</a></p>
+
+<ul>
+<li>（９）SELinuxが有効のままだと，passengerに権限が足りず「403 Forbidden」と表示されてしまう</li>
+</ul><p><br>
+SELinux機能の停止方法<br>
+<a class="sk_shortened" href="http://www.server-memo.net/linux-setting/selinux6a5f80fd306e505c6b62">http://www.server-memo.net/linux-sett...</a></p><br>
+<p>sambaで共有フォルダが見えるが書き込みできない<br>
+<a href="http://okwave.jp/qa/q5685846.html">http://okwave.jp/qa/q5685846.html</a></p>
+
+<ul>
+<li>良くあるのはディレクトリのパーミッションの設定のし忘れ</li>
+</ul>
+    </blockquote>
+<p>覚えておくべき点：</p>
+
+<ul>
+<li>Linux上の<font color="red"><span data-unlink="">ファイルにアクセスできない場合，パーミッションの次に，SELinuxを疑え</span></font>。</li>
+</ul>
+<ul>
+<li>Linux上の<font color="red"><span data-unlink="">ネットワーク資源にアクセスできない場合，打ち間違いやセグメント違い・起動し忘れなどの次に，iptablesを疑え</span></font>。</li>
+</ul><p></p><p>なお，Sambaのログの場所は /var/log/samba/smbd.log なので，</p><p>何かあったらその中を見て，エラーメッセージを頼りに対処してゆくこと。</p><br>
+<br>
+<p>参考：</p>
+
+    <blockquote>
+        <p>Samba+CentOSでファイルサーバを作ろう <br>
+<a class="sk_shortened" href="http://thinkit.co.jp/free/article/0706/27/3/">http://thinkit.co.jp/free/article/070...</a></p><br>
+<p>Windowsファイルサーバー構築(Samba)<br>
+<a href="http://centossrv.com/samba.shtml">http://centossrv.com/samba.shtml</a><br>
+</p>
+
+    </blockquote>
+<p><br>
+※ちなみに，Sambaをブラウザ上（901番ポート）から管理できる「SWAT」というツールも存在するが，お勧めしない。</p><p>このSWATというツールは，作りがあまりよろしくない。</p><p>例えば，GUIの画面上からパラメータを入力して，設定を反映させようとすると，<br>
+（ブラウザのキャッシュなどのせいで）設定が未反映の状態で画面が再表示されてしまう事がある。<br>
+そこで再度「設定反映」ボタンを押してしまうと，設定前の状態に戻ってしまうのだ。</p><p>設定項目も大量に表示されてしまい，最初のうちは使いこなしづらい。</p><br>
+<p>参考：</p>
+
+    <blockquote>
+        <p>SWATのインストールと利用設定<br>
+<a class="sk_shortened" href="http://www.obenri.com/_samba/swat_setting.html">http://www.obenri.com/_samba/swat_set...</a><br>
+</p>
+
+    </blockquote>
+<p></p><p>ここまでで，共有フォルダ作成のための基本的な作業が完了したことになる。</p><br>
+<p></p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="UseSambaSharedDirFromWindows"></a><p></p>
+
+</div>
+<div class="section">
+    <h4>（３−６）共有フォルダをWindows上で開発環境にする</h4>
+    <p>ここからは，この共有フォルダを，冒頭の図のような開発環境に仕立て上げてゆく。</p><br>
+<p>まずは，共有フォルダに楽々辿りつけるよう，<font color="blue"><span data-unlink="">ネットワークドライブの割り当て</span></font>を行なう。</p><br>
+<p>Windows Vistaでは，マイコンピュータを開くと</p><p>画面上部に「ネットワークドライブの割り当て」ボタンがある。</p><p>そこを押下し，「ネットワークドライブの割り当て」ダイアログ上で，</p><p>ドライブ名は適当に選ぶ（Yとか）。</p><p>フォルダ名は「\\LinuxのIPアドレス\share_for_dev」とする。</p><p>「ログオン時に再接続」にチェックされている事を確認し，完了を押下。</p><br>
+<p>これで，「share_for_dev」ディレクトリは，</p><p>Windows上でYドライブとしてアクセスできるようになった。</p><br>
+<br>
+<p>次に，そのドライブを開発環境として用いるために，SVNリポジトリを作る。</p><p>手順（２）で既に紹介されているが，要所だけをかいつまんで書くと，<br>
+まずは</p>
+
+<ul>
+<li>D:\svnprojects\samba_test</li>
+</ul><p>というフォルダを作成。</p><p>そのフォルダ上で，右クリック→Tortoise SVN→「ここにリポジトリを作成」する。</p><p>そして，ブラウザ上から</p>
+
+<ul>
+<li><a href="http://localhost/svn/samba_test/">http://localhost/svn/samba_test/</a></li>
+</ul><p>にアクセスし，「samba_test - Revision 0: /」と表示される事を確認する。<br>
+（もしアクセス制限をかけている場合は，認証情報を入力する。）</p><p>これでリポジトリができ，WebDAV経由で閲覧できるようにもなった。</p><br>
+<br>
+<p>次いで，リポジトリから開発環境にチェックアウトを行なう。</p><p>Y:\samba_test　というフォルダを作り，そのフォルダ上で<br>
+右クリック→「SVNチェックアウト」を選択。</p><p>チェックアウトダイアログ上で，リポジトリのURLとして</p>
+
+<ul>
+<li><a href="http://localhost/svn/samba_test">http://localhost/svn/samba_test</a></li>
+</ul><p>を入力。</p><p>OKを２回押下。</p><p>これで，Y:\samba_test　上に .svn 隠しファイルが生成され，</p><p>リポジトリとして利用可能になった。</p><br>
+<br>
+<p>そしてWindows上の作業として最後に，<br>
+この共有フォルダが，Windows起動時にすぐに利用可能になるようにしよう。</p><br>
+<p>現状では，Windows起動時にはこの共有フォルダは使えない。</p><p>このフォルダが，VMWare上の仮想マシンの一部であることをお忘れなく。</p><br>
+<p>だから，<font color="blue"><span data-unlink="">Windows起動と同時に，VMWareおよび仮想マシンが起動する</span></font>ようにすればよいのだ。</p><p>そのようなバッチは，下記の３つのバッチを組み合わせることによって作成できる。</p>
+
+    <blockquote>
+        <p>vmrun.exeで，仮想マシンの操作をバッチから自動化しよう （VMWare Server 2で，WindowsからLinuxをOSごと自動操作）<br>
+<a href="http://language-and-engineering.hatenablog.jp/entry/20100514/p1">http://language-and-engineering.hatenablog.jp/entry/20100514/p1</a></p>
+
+<ul>
+<li>仮想マシンを自動操作するバッチ</li>
+<li>VMWare Host Agent サービスを起動するバッチ</li>
+</ul><p><br>
+「スタートアップ」に，仕事をさせよう　（朝，出社するだけで仕事が進む仕組み作り）<br>
+<a href="http://language-and-engineering.hatenablog.jp/entry/20100929/p1">http://language-and-engineering.hatenablog.jp/entry/20100929/p1</a></p>
+
+<ul>
+<li>my_startup.bat</li>
+</ul>
+    </blockquote>
+<p>my_startup.batの末尾に，下記のように追記するとよいだろう。</p>
+<pre class="code" data-lang="" data-unlink="">@rem VMサービスを起動
+net start "VMWare Host Agent"
+
+@rem 仮想マシンを起動
+"C:\Program Files\VMWare\VMWare Server\vmrun" -T server ^
+  -h https://localhost:8333/sdk ^
+  -u Windowsのユーザ名 -p Windowsのパスワード ^
+  start "[standard] 仮想マシン名/仮想マシン名.vmx"
+</pre><p>これで，Windows起動時には自動的に共有フォルダが利用可能になる。</p><p>（※もしチームで開発している場合は，さらに共有フォルダ上のSVN更新もスタートアップに含めるとよいだろう。）</p><br>
+<p>※なお，Windows Vistaではスタートアップが管理者権限で実行されないので，<br>
+net startコマンドの部分が「システム エラー 5 が発生しました。アクセスが拒否されました。」のエラーになる。<br>
+その場合，スタートアップではなく，タスクスケジューラで<br>
+「ログオン時」のタスクを定義すればよい。</p><p>または，単にサービスの設定として<br>
+該当VMサービスが自動起動するようにしておけばよい。</p>
+
+    <blockquote>
+        <p>vistaで管理者権限にてスタートアップを使用する方法<br>
+<a href="http://d.hatena.ne.jp/zizif/20070912/p2">http://d.hatena.ne.jp/zizif/20070912/p2</a></p>
+
+<ul>
+<li>「タスクの作成」→全般タブで「最上位の特権で実行する」にチェック</li>
+<li>トリガタブでタスクの開始を「ログオン時」に</li>
+</ul>
+    </blockquote>
+<p><br>
+ここまでで，共有フォルダをWindows側で開発環境として利用する環境が構築できた。</p><br>
+<p></p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="RunWebappOnSharedSambaDir"></a><p></p>
+
+</div>
+<div class="section">
+    <h4>（３−７）共有フォルダにLinux上でWebアプリを置いて動かす</h4>
+    <p>次に，ここにRuby on Railsのプロジェクトを作成し，Linux上で動かす。</p><p>なお，手順（１）によりApacheとRailsとPassengerは導入済みとする。</p><br>
+<p>Linux上で作業：</p>
+<pre class="code lang-sh" data-lang="sh" data-unlink=""><span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> <span class="synStatement">cd</span> /usr/<span class="synStatement">local</span>/work/samba_test/
+<span class="synStatement">[</span>root@localhost samba_test<span class="synStatement">]</span> <span class="synStatement">mkdir</span> src
+<span class="synStatement">[</span>root@localhost samba_test<span class="synStatement">]</span> <span class="synStatement">cd</span> src
+<span class="synStatement">[</span>root@localhost src<span class="synStatement">]</span> rails samba_test
+
+〜〜
+
+<span class="synStatement">[</span>root@localhost src<span class="synStatement">]</span> <span class="synStatement">chmod</span> <span class="synSpecial">-R</span> <span class="synConstant">777</span> ../
+<span class="synStatement">[</span>root@localhost src<span class="synStatement">]</span> chown <span class="synSpecial">-R</span> hogeyama:hogeyama ../
+</pre><p>※chownしてオーナーをWindowsのユーザにしておかないと，SVNコミット時に失敗する。</p><br>
+<p>次に，そこを公開ディレクトリとして認識させるために</p><p>Apacheの設定ファイル /etc/httpd/conf/httpd.conf を編集。</p><br>
+<p>既に下記の３行は記述済みだろう。</p>
+<pre class="code lang-conf" data-lang="conf" data-unlink=""><span class="synComment"># passengerのモジュールを読み込み</span>
+LoadModule passenger_module /usr/local/lib/ruby/gems/1.8/gems/passenger-2.2.7/ext/apache2/mod_passenger.so
+PassengerRoot /usr/local/lib/ruby/gems/1.8/gems/passenger-2.2.7
+PassengerRuby /usr/local/bin/ruby
+</pre><p><br>
+その下に，サンプルとして既にRailsBaseURIが指定されているかもしれない。</p><p>下記のように。</p>
+<pre class="code lang-conf" data-lang="conf" data-unlink=""><span class="synComment"># /var/www/htmlという公開ディレクトリ中の</span>
+<span class="synComment"># link_hogeというシンボリックリンクの参照先を</span>
+<span class="synComment"># Railsのルートディレクトリにする</span>
+&lt;VirtualHost *:80&gt;
+    DocumentRoot /var/www/html
+    ErrorLog logs/error_log
+    CustomLog logs/access_log common
+    RailsBaseURI /link_hoge
+&lt;/VirtualHost&gt;
+</pre><p>これを，以下のように１行だけRailsBaseURIを追記する。</p>
+<pre class="code lang-conf" data-lang="conf" data-unlink=""><span class="synComment"># シンボリックリンクの参照先をRailsのルートディレクトリにする</span>
+&lt;VirtualHost *:80&gt;
+    DocumentRoot /var/www/html
+    ErrorLog logs/error_log
+    CustomLog logs/access_log common
+    RailsBaseURI /link_hoge
+    RailsBaseURI /samba_test
+&lt;/VirtualHost&gt;
+</pre><p>こうすれば，複数のサブURLに対して複数のシンボリックリンクを対応させ</p><p>同一サーバ上で複数のRailsアプリを同時並行して動作させることができる。</p><br>
+<p>参考：</p>
+
+    <blockquote>
+        <p>Passenger で複数の Rails アプリをサブ URI にぶら下げる方法<br>
+<a class="sk_shortened" href="http://blog.livedoor.jp/kaznobster/archives/1158745.html">http://blog.livedoor.jp/kaznobster/ar...</a></p>
+
+<ul>
+<li><a href="http://example.com/hoge/">http://example.com/hoge/</a> と <a href="http://example.com/fuga/">http://example.com/fuga/</a> という URI で、Passenger を使って複数の Rails のアプリを動かす</li>
+</ul>
+    </blockquote>
+<p><br>
+そして，シンボリックリンクを実際に作成する。</p><p>また，Apacheを再起動。</p>
+<pre class="code lang-sh" data-lang="sh" data-unlink=""><span class="synStatement">[</span>root@localhost ~<span class="synStatement">]</span> <span class="synStatement">cd</span> /var/www/html
+<span class="synStatement">[</span>root@localhost html<span class="synStatement">]</span> ln <span class="synSpecial">-s</span> /usr/<span class="synStatement">local</span>/work/samba_test/src/samba_test/public samba_test
+
+<span class="synStatement">[</span>root@localhost html<span class="synStatement">]</span> /etc/init.d/httpd <span class="synStatement">restart</span>
+</pre><p><br>
+これで，ブラウザから下記のURLにアクセス。</p>
+
+<ul>
+<li><a href="http://linux/">http://Linux</a>のIPアドレス/samba_test/</li>
+</ul><p>「Welcome aboard!」と表示されればOK。</p><br>
+<br>
+<p>あとは，Windows上で</p>
+
+<ul>
+<li>Y:\samba_test\src</li>
+</ul><p>の内容をSVNコミットしておくだけだ。</p><br>
+<br>
+<p>これで，共有フォルダを</p>
+
+<ul>
+<li>Windowsからは開発資材</li>
+</ul>
+<ul>
+<li>Linuxからは公開ディレクトリ</li>
+</ul><p>として，シームレスに共用できるようになった。</p><br>
+<p>冒頭の図の開発環境が完成した。</p><br>
+<br>
+<p>最後に，構成情報をまとめておく。</p>
+
+    <blockquote>
+        <p>Windows側：</p>
+
+<ul>
+<li>Windows Vista</li>
+<li>VMWare Server 2</li>
+<li>Tortoise SVN 1.6.16</li>
+<li>Win32SVN Subversion-1.6.17</li>
+<li>XAMPP1.7.1
+<ul>
+<li>Apache 2.2.11</li>
+</ul></li>
+</ul><p>Linux側：</p>
+
+<ul>
+<li>CentOS 5.6</li>
+<li>Ruby 1.8.6</li>
+<li>RubyGem 1.3.6</li>
+<li>Apache 2.2.3</li>
+<li>mod_rails(passenger) 2.2.7</li>
+<li>Ruby on Rails 1.2.6</li>
+<li>Samba 3.0.33</li>
+</ul>
+    </blockquote>
+<p></p><table class="table_amaf_tags"><tbody><tr><td><a rel="nofollow" href="http://www.amazon.co.jp/gp/product/4798137510/ref=as_li_qf_sp_asin_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=4798137510&amp;linkCode=as2&amp;tag=jrbzjjbclae-22"><img border="0" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/q(3)"></a><img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/ir(3)" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"></td><td><a rel="nofollow" href="http://www.amazon.co.jp/gp/product/4774138797/ref=as_li_qf_sp_asin_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=4774138797&amp;linkCode=as2&amp;tag=jrbzjjbclae-22"><img border="0" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/q(4)"></a><img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/ir(4)" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"></td><td><a rel="nofollow" href="http://www.amazon.co.jp/gp/product/477414794X/ref=as_li_qf_sp_asin_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=477414794X&amp;linkCode=as2&amp;tag=jrbzjjbclae-22"><img border="0" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/q(5)"></a><img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/ir(5)" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"></td></tr></tbody></table><p></p><p></p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="supplement"></a><p></p>
+
+</div>
+<div class="section">
+    <h4>補足</h4>
+    <p>共有フォルダ上でのSVN更新やSVNコミット等の操作は，割と遅めになるかもしれない。</p><p>（ネットワークを経由して一括ファイル操作するので。）</p><p>そういう環境なのだ，と割り切って，うまく時間配分して作業を進めてゆくことが大事。</p><br>
+<p></p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="supplement2"></a><p></p>
+
+</div>
+<div class="section">
+    <h4>補足２</h4>
+    <p>このページを他のエンジニアに紹介する際には，</p>
+
+<ul>
+<li>GoogleかYahooで，『Linux Samba 共有フォルダ 環境』で検索して一番上に来るページ</li>
+</ul><p>を見るように伝えればOK。<br>
+（2011年8月時点）</p><br>
+<p></p><div class="_anchor_to_top_menu" style="text-align:right;top:-20px;position:relative;height:0px;font-size:12px;padding-right:10px"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#top_menu">↑目次へ戻る</a></div><a name="vmNATinsteadOfBridge"></a><p></p>
+
+</div>
+<div class="section">
+    <h4>補足３：仮想マシンのネットワークアダプタとして，BridgeではなくNATを選択したい場合</h4>
+    <p>もし仮想マシンに対してBridgeではなくNATを使いたい場合，<br>
+VMのWeb管理画面から該当マシンのNWアダプタを「NAT」に変更。</p><p>VMコンソール上で該当マシンにログインし，端末を開いて</p>
+<pre class="code lang-sh" data-lang="sh" data-unlink="">dhclient
+
+/etc/init.d/network <span class="synStatement">restart</span>
+
+ifconfig
+</pre><p>これで，VMWareがDHCPサーバとして機能して，仮想マシン内には新IPアドレスが自動的に割り振られた。</p><br>
+<p>ホストから下記のURLにアクセス：</p>
+
+<ul>
+<li>http://新IPアドレス/</li>
+</ul><p>Apacheのスタートページが見えるはず。</p>
+
+<ul>
+<li>http://新IPアドレス/samba_test/</li>
+</ul><p>Railsのスタートページが見えるはず。</p><br>
+<p>この時点で，ホストとゲストで異なるサブネットに所属するような状況になっているはずなので，ゲストOSのsmb.confのIPアドレス許可設定を極力緩めにする（192.　だけとか）。</p><p>そしてSambaを再起動。</p>
+<pre class="code lang-sh" data-lang="sh" data-unlink="">/etc/init.d/smb <span class="synStatement">restart</span>
+</pre><p>これで，ホストOSのエクスプローラから下記のパスにアクセス。</p>
+
+<ul>
+<li>\\新IPアドレス</li>
+</ul><p>すると，共有フォルダの中身が見れる。</p><br>
+<p>NATでも問題なくSambaで共有フォルダを利用できる，という事がわかった。</p><br>
+<p>ただし，BridgeでIPアドレスを固定しておき，いざという時には他のユーザに対して公開することもできるような環境を整えておいたほうが，共有フォルダの用途として何かと便利ではあるだろう。</p><br>
+<p>参考：</p>
+
+    <blockquote>
+        <p>Windows 7 + VMware Server 2 + Windows XP　 ＮＡＴ接続のゲストＰＣからのＨＴＴＰアクセス設定編<br>
+<a class="sk_shortened" href="http://ogu80000.blog135.fc2.com/blog-entry-31.html#">http://ogu80000.blog135.fc2.com/blog-...</a></p>
+
+<ul>
+<li>会社や学校等で他の利用者がいる場合に仮想マシンの設定ミス等で迷惑をかけないためとか物理マシン１台に１ＩＰアドレスしか割当ててもらえない場合などＮＡＴ接続は有用</li>
+<li>ホストマシンのコマンドプロンプトでipconfig /allを実行し、NAT接続に使われるVMnet 8 が表示されるか 確認</li>
+<li>VMwareの仮想環境上にDHCPサーバができているのでホストマシンのIPアドレス帯と異なるIPアドレスが自動的にふられている</li>
+</ul>
+    </blockquote>
+<p></p><table class="table_amaf_tags"><tbody><tr><td><a rel="nofollow" href="http://www.amazon.co.jp/gp/product/B00IP549AE/ref=as_li_qf_sp_asin_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=B00IP549AE&amp;linkCode=as2&amp;tag=jrbzjjbclae-22"><img border="0" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/q(6)"></a><img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/ir(6)" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"></td><td><a rel="nofollow" href="http://www.amazon.co.jp/gp/product/B00FOJ0BY2/ref=as_li_qf_sp_asin_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=B00FOJ0BY2&amp;linkCode=as2&amp;tag=jrbzjjbclae-22"><img border="0" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/q(7)"></a><img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/ir(7)" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"></td><td><a rel="nofollow" href="http://www.amazon.co.jp/gp/product/4534049056/ref=as_li_qf_sp_asin_il?ie=UTF8&amp;camp=247&amp;creative=1211&amp;creativeASIN=4534049056&amp;linkCode=as2&amp;tag=jrbzjjbclae-22"><img border="0" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/q(8)"></a><img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/ir(8)" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;"></td></tr></tbody></table><p></p><p><div class="footer_ggle_ad" style="margin-top: 0px; padding-top: 0px; padding-bottom: 20px;">
+
+<div class="my_ad_label">スポンサーリンク</div>
+
+<script async="" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/f(10).txt"></script>
+<!-- lae_pc_footer -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-7448449738963816" data-ad-slot="7053232251" data-adsbygoogle-status="done"><ins id="aswift_3_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><ins id="aswift_3_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><iframe width="336" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_3" name="aswift_3" style="left:0;position:absolute;top:0;width:336px;height:280px;" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/saved_resource(4).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+<script async="" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/f(10).txt"></script>
+<!-- lae_pc_footer_2 -->
+<ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-7448449738963816" data-ad-slot="3634140658" data-adsbygoogle-status="done"><ins id="aswift_4_expand" style="display:inline-table;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><ins id="aswift_4_anchor" style="display:block;border:none;height:280px;margin:0;padding:0;position:relative;visibility:visible;width:336px;background-color:transparent;"><iframe width="336" height="280" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_4" name="aswift_4" style="left:0;position:absolute;top:0;width:336px;height:280px;" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/saved_resource(5).html"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div><span class="kanren_kiji_label">関連する記事：</span></p><p></p><div class="kanren_div"><p></p><p>Linux上のApacheで，複数のWebサイトを同時テストできる環境を作る　（仮想ホストでサイト住み分け ＋ SVNフックスクリプトで自動デプロイ＋ユーザ認証でチーム作業）<br>
+<a href="http://language-and-engineering.hatenablog.jp/entry/20110928/p1">http://language-and-engineering.hatenablog.jp/entry/20110928/p1</a></p><br>
+<p>共有フォルダ上で，マウスだけで一発でコマンドプロンプトを開く方法　（UNCパスへのpushdをバッチクリックで済ませる）<br>
+<a href="http://language-and-engineering.hatenablog.jp/entry/20090305/p1">http://language-and-engineering.hatenablog.jp/entry/20090305/p1</a></p><br>
+<p>Linux（CentOS6.3 x64）上で、無線LAN接続を設定する手順のメモ<br>
+<a href="http://language-and-engineering.hatenablog.jp/entry/20121220/p1">http://language-and-engineering.hatenablog.jp/entry/20121220/p1</a></p><p></p></div><p></p><p>　</p>
+
+</div>
+    
+
+  
+</div>
+
+    
+  <footer class="entry-footer">
+    
+    <p class="entry-footer-section">
+  <span class="author vcard"><span class="fn" data-load-nickname="1" data-user-name="language_and_engineering"><span class="user-name-nickname">lang_and_engine</span> <span class="user-name-paren">(</span><span class="user-name-hatena-id">id:language_and_engineering</span><span class="user-name-paren">)</span></span></span>
+  <span class="entry-footer-time"><a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1"><time data-relative="" datetime="2011-08-19T15:00:00Z" title="2011-08-19T15:00:00Z" pubdate="" class="updated">6年前</time></a></span>
+</p>
+
+    
+
+    
+<div class="social-buttons">
+  
+  
+    <div class="social-button-item">
+      <iframe class="hatena-bookmark-button-frame" title="この記事をはてなブックマークに追加" frameborder="0" scrolling="no" width="84" height="40" src="javascript:false" style="width: 84px; height: 40px;" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/saved_resource(6).html"></iframe>
+    </div>
+  
+  
+    <div class="social-button-item">
+      <div class="fb-share-button fb_iframe_widget" data-layout="box_count" data-href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=719729204785177&amp;container_width=0&amp;href=http%3A%2F%2Flanguage-and-engineering.hatenablog.jp%2Fentry%2F20110820%2Fp1&amp;layout=box_count&amp;locale=ja_JP&amp;sdk=joey"><span style="vertical-align: bottom; width: 61px; height: 40px;"><iframe name="f37663ac83d8518" width="1000px" height="1000px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" title="fb:share_button Facebook Social Plugin" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/share_button.html" style="border: none; visibility: visible; width: 61px; height: 40px;" class=""></iframe></span></div>
+    </div>
+  
+  
+    <div class="social-button-item">
+      <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 75px; height: 20px;" title="Twitter Tweet Button" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/tweet_button.7a5ca036ea5299f1d2ebb2234731e35e.ja.html" data-url="http://language-and-engineering.hatenablog.jp/entry/20110820/p1"></iframe>
+    </div>
+  
+  
+  
+  
+    <span>
+      <iframe data-type="share-e" data-lang="ja" data-line-it-id="0" scrolling="no" frameborder="0" allowtransparency="true" class="line-it-button" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/share.html" style="width: 36px; height: 60px; visibility: visible; position: static;" title="このページの情報をLINEでシェアできます。"></iframe>
+      <script src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/loader.min.js.ダウンロード" async="async" defer="defer"></script>
+    </span>
+  
+  
+</div>
+
+    
+
+    <div class="customized-footer">
+      
+
+        
+
+        
+
+        
+        
+  <div class="entry-footer-html">
+
+
+
+
+
+
+<script>
+
+$(function(){
+    
+    //alert("hoge");
+
+
+//alert("hoge");
+
+
+// 広告を中央に持っていく
+var elems = $("div.entry-content h4, div.entry-content pre, div.entry-content blockquote");
+
+
+// 取り出す
+var elem_index;
+if( elems.size() < 2 ){
+    elem_index = 0;
+}
+else
+if( elems.size() == 2 ){
+    elem_index = 1;
+}
+else
+{
+    elem_index = Math.floor( elems.size() / 2 );
+}
+//alert(elem_index);
+var elem = elems.eq( elem_index - 1 ).get(0);
+
+// タグの種類に応じて
+var tn = elem.tagName.toLowerCase();
+//alert(tn);
+if( tn == "h4" ){
+    // 見出しなら前に
+    $( elem ).before( $("div.pc_middle_ggle_ad") );
+}
+else
+if( ( tn == "blockquote" ) || ( tn == "pre" ) ){
+    // BQ, preならあとに
+    $( elem ).after( $("div.pc_middle_ggle_ad") );
+
+}
+
+
+
+// 関連記事はあるか
+var kanren = $("span.kanren_kiji_label");
+if( kanren.size() > 0 ){
+    
+    // 記事下の広告
+    var ad_elem = $("div.footer_ggle_ad");
+    
+    // 関連の前に移動
+    $( kanren ).before( ad_elem );
+    
+    // CSS調整
+    ad_elem.css({
+        "margin-top" : "0px",
+        "padding-top" : "0",
+        "padding-bottom" : "20px"
+    });
+    
+}
+
+
+});
+
+</script></div>
+
+
+      
+    </div>
+    
+
+  </footer>
+
+  </div>
+</article>
+
+      
+      
+    
+  
+
+  
+  <!-- rakuten_ad_target_end -->
+  <!-- google_ad_section_end -->
+  
+  
+  
+  <div class="pager pager-permalink permalink">
+    
+      
+      <span class="pager-prev">
+        <a href="http://language-and-engineering.hatenablog.jp/entry/20110821/p1" rel="prev">
+          <span class="pager-arrow">« </span>
+          Facebookアプリで「Hello, World」の作り…
+        </a>
+      </span>
+    
+    
+      
+      <span class="pager-next">
+        <a href="http://language-and-engineering.hatenablog.jp/entry/20110815/p1" rel="next">
+          Androidアプリで，_("リソース名") と書く…
+          <span class="pager-arrow"> »</span>
+        </a>
+      </span>
+    
+  </div>
+
+
+  
+
+
+
+        </div>
+      </div>
+
+      <aside id="box1">
+  <div id="box1-inner">
+  </div>
+</aside>
+
+    </div><!-- #wrapper -->
+
+    
+<aside id="box2">
+  
+  <div id="box2-inner">
+    
+      
+<div class="hatena-module hatena-module-html">
+    <div class="hatena-module-title">目次</div>
+  <div class="hatena-module-body">
+    <div class="side_mokuji_div">
+
+<b>システム開発：</b>
+<ul>
+  <li><a href="http://language-and-engineering.hatenablog.jp/entry/20110904/p1">バッチ職人になろう</a> <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/p1(1)">
+  </li><li><a href="http://language-and-engineering.hatenablog.jp/entry/20110717/p1">開発者のスキルチェック集</a> <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/p1(2)"> 
+  </li><li><a href="http://language-and-engineering.hatenablog.jp/entry/20080912/1221297779">JavaScriptの動かないコード</a> <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/1221297779"> 
+  </li><li><a href="http://language-and-engineering.hatenablog.jp/entry/20110920/p1">コーディングTips</a> <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/p1(3)"> <br>
+&nbsp;&nbsp;&nbsp;
+└ <a href="http://language-and-engineering.hatenablog.jp/entry/20140311/JavaScriptProgrammingTips">JavaScript</a>, <a href="http://language-and-engineering.hatenablog.jp/entry/20140310/AndroidSDKProgrammingTips">Android</a>, <a href="http://language-and-engineering.hatenablog.jp/entry/20110920/p1">他</a>
+  </li><li><a href="http://language-and-engineering.hatenablog.jp/entry/20081020/1224437651">開発Tips</a> <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/1224437651"> <br>
+&nbsp;&nbsp;&nbsp;
+├<a href="http://language-and-engineering.hatenablog.jp/entry/20140810/DevelopmentTips">上流工程から下流工程</a><br>
+&nbsp;&nbsp;&nbsp;
+├<a href="http://language-and-engineering.hatenablog.jp/entry/20140809/DevelopmentEnvironmentSetup">環境構築の手順</a><br>
+&nbsp;&nbsp;&nbsp;
+└<a href="http://language-and-engineering.hatenablog.jp/entry/20140809/DevelopmentToolsUsage">ツールの使い方</a>
+</li></ul>
+
+
+<b>言語：</b>
+<ul>
+  <li><a href="http://language-and-engineering.hatenablog.jp/entry/20110716/p1">多言語を学ぶ</a> <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/p1(4)"> 
+  </li><li><a href="http://language-and-engineering.hatenablog.jp/entry/20130403/LanguagesSpokenInChina">中国の言語を学ぶ</a> <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/LanguagesSpokenInChina"> 
+</li></ul>
+
+
+<b>学術：</b>
+<ul>
+  <li><a href="http://language-and-engineering.hatenablog.jp/entry/20140620/PDFLectureNotesOnUniversity">大学の理工系の講義ノート</a> <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/PDFLectureNotesOnUniversity"> </li>
+  <li><a href="http://language-and-engineering.hatenablog.jp/entry/20140715/GraduateSchoolsEntranceExamAnswers">院試の問題と解答のまとめ</a> <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/GraduateSchoolsEntranceExamAnswers"> </li>
+
+</ul>
+
+
+ファイル置き場：
+<ul>
+  <li><a href="http://name-of-this-site.org/">このサイトの名は？</a> <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/saved_resource"> </li>
+</ul>
+
+
+<div align="center">
+  <a href="http://language-and-engineering.hatenablog.jp/archive">記事一覧</a> / 
+  <a href="http://language-and-engineering.hatenablog.jp/entry/20070101/1222414751">未分類の記事</a> / 
+  <a href="http://language-and-engineering.hatenablog.jp/entry/20080110/p1">misc</a>
+</div>
+
+</div>
+  </div>
+</div>
+
+    
+      
+<div class="hatena-module hatena-module-html">
+    <div class="hatena-module-title">ブックマークの多い記事</div>
+  <div class="hatena-module-body">
+    <script language="javascript" type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/widget.js.ダウンロード" charset="utf-8"></script>
+<script language="javascript" type="text/javascript">
+Hatena.BookmarkWidget.url   = "http://language-and-engineering.hatenablog.jp/";
+Hatena.BookmarkWidget.title = " ";
+Hatena.BookmarkWidget.sort  = "count";
+Hatena.BookmarkWidget.width = 300;
+Hatena.BookmarkWidget.num   = 10;
+Hatena.BookmarkWidget.theme = "hatenadiary";
+Hatena.BookmarkWidget.load();
+</script><div id="hatena-bookmark-widget0" class="hatena-bookmark hatena-module" style="width: 300px"><div class="hatena-moduletitle"><a href="http://b.hatena.ne.jp/entrylist?url=http://language-and-engineering.hatenablog.jp/&amp;sort=count"><img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/favicon.gif"> </a></div><div class="hatena-modulebody"><ul><li><a class="hatena-bookmark-entrytitle" href="http://language-and-engineering.hatenablog.jp/entry/20130502/PatternsOfMSDOSorBAT">開発に役立つ，BATファイルの書き方・パターン集　（コマンドプロンプトの定石を体...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20130502/PatternsOfMSDOSorBAT">1566users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://language-and-engineering.hatenablog.jp/entry/20110702/p1">HTMLとスタイルシート（CSS）の業務スキルレベル　判別表　（５段階） - 主に言語...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20110702/p1">1293users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://language-and-engineering.hatenablog.jp/entry/20120330/p1">GoFの23のデザインパターンを，Javaで活用するための一覧表　（パターンごとの要約...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20120330/p1">1081users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://language-and-engineering.hatenablog.jp/entry/20140606/OrdinaryDifferentialEquationPDFLectureNotes">微分方程式の講義ノートPDF。例題と解答付き （常微分方程式の初歩的な解き方を勉...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20140606/OrdinaryDifferentialEquationPDFLectureNotes">914users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://language-and-engineering.hatenablog.jp/entry/20110918/p1">ソフトウェア開発者が読むべき IT系雑誌の一覧と，おすすめの読み方 - 主に言語と...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20110918/p1">847users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://language-and-engineering.hatenablog.jp/entry/20140311/JavaScriptProgrammingTips">JavaScriptのコーディングTips集 - 主に言語とシステム開発に関して</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20140311/JavaScriptProgrammingTips">777users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://language-and-engineering.hatenablog.jp/entry/20120619/p1">あなたが理解できない，たった一行のRubyのコード （動的言語に対する静的解析の限...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20120619/p1">373users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://language-and-engineering.hatenablog.jp/entry/20110104/p1">DBの「トランザクション分離レベル」が必要な理由　 （PostgreSQLで，ファントム・...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20110104/p1">351users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://language-and-engineering.hatenablog.jp/entry/20140607/QuantumComputationPDFLectureNotes">量子コンピュータ・量子情報の講義ノートPDF。 量子計算や量子通信の理論を，基礎...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20140607/QuantumComputationPDFLectureNotes">343users</a></strong></span></li><li><a class="hatena-bookmark-entrytitle" href="http://language-and-engineering.hatenablog.jp/entry/20080912/1221297779"> JavaScriptの動かないコード　　(JavaScriptエラー集) - 主に言語とシステム開発...</a><span class="hatena-bookmark-count"><strong><a href="http://b.hatena.ne.jp/entry/http://language-and-engineering.hatenablog.jp/entry/20080912/1221297779">288users</a></strong></span></li></ul></div><div class="hatena-modulefooter"><a href="http://b.hatena.ne.jp/"><span>Hatena::Bookmark</span></a></div></div>
+
+<font size="2">
+<a href="http://b.hatena.ne.jp/entrylist?url=http%3A%2F%2Flanguage-and-engineering.hatenablog.jp%2F&amp;sort=count">もっと見る</a>
+</font>
+  </div>
+</div>
+
+    
+      
+<div class="hatena-module hatena-module-entries-access-ranking" data-count="10" data-source="access" data-enable_customize_format="0" data-display_entry_category="0" data-display_entry_image="1" data-display_entry_image_size_width="70" data-display_entry_image_size_height="70" data-display_entry_body_length="60" data-display_entry_date="0" data-display_entry_title_length="20" data-restrict_entry_title_length="0" data-display_bookmark_count="0">
+  <div class="hatena-module-title">
+    
+      人気のある記事
+    
+  </div>
+  <div class="hatena-module-body">
+    
+  <ul class="entries-access-ranking hatena-urllist urllist-with-thumbnails">
+  
+  
+    
+    <li class="urllist-item entries-access-ranking-item rank-1">
+      <div class="urllist-item-inner entries-access-ranking-item-inner">
+        
+                      <a class="urllist-image-link entries-access-ranking-image-link" href="http://language-and-engineering.hatenablog.jp/entry/20130502/PatternsOfMSDOSorBAT">
+  <img alt="開発に役立つ，BATファイルの書き方・パターン集　（コマンドプロンプトの定石を体系的に学び，バッチ中級者になろう）" src="https://cdn.image.st-hatena.com/image/square/b37c3ebbb33db9f1a71ec75090b2605fe66dc6a0/backend=imagemagick;height=70;version=1;width=70/http%3A%2F%2Fws.assoc-amazon.jp%2Fwidgets%2Fq%3F_encoding%3DUTF8%26ASIN%3D4774149543%26Format%3D_SL160_%26ID%3DAsinImage%26MarketPlace%3DJP%26ServiceVersion%3D20070822%26WS%3D1%26tag%3Dfugayahogeo-22" class="urllist-image entries-access-ranking-image" title="開発に役立つ，BATファイルの書き方・パターン集　（コマンドプロンプトの定石を体系的に学び，バッチ中級者になろう）" width="70">
+</a>
+
+          <a href="http://language-and-engineering.hatenablog.jp/entry/20130502/PatternsOfMSDOSorBAT" class="urllist-title-link entries-access-ranking-title-link  urllist-title entries-access-ranking-title">開発に役立つ，BATファイルの書き方・パターン集　（コマンドプロンプトの定石を体系的に学び，バッチ中級者になろう）</a>
+
+
+          
+          
+
+                      <div class="urllist-entry-body entries-access-ranking-entry-body">バッチのまとめTOPへ Windows上の処理を自動化するプログラムが…</div>
+      </div>
+    </li>
+  
+    
+    <li class="urllist-item entries-access-ranking-item rank-2">
+      <div class="urllist-item-inner entries-access-ranking-item-inner">
+        
+                      <a class="urllist-image-link entries-access-ranking-image-link" href="http://language-and-engineering.hatenablog.jp/entry/20140509/UniversityCalculusPDFNoteLinks">
+  <img alt="大学の数学で，微積分（解析学）の講義ノートPDF。演習問題と解答付き（大学１年で学ぶ，１変数と多変数の微分積分学のオンライン教科書）" src="https://cdn.image.st-hatena.com/image/square/feb8803c0a373c1f21b9dbba849b1a2bc47524d0/backend=imagemagick;height=70;version=1;width=70/http%3A%2F%2Fws-fe.amazon-adsystem.com%2Fwidgets%2Fq%3F_encoding%3DUTF8%26ASIN%3D4130620053%26Format%3D_SL250_%26ID%3DAsinImage%26MarketPlace%3DJP%26ServiceVersion%3D20070822%26WS%3D1%26tag%3Dfugayahogeo-22" class="urllist-image entries-access-ranking-image" title="大学の数学で，微積分（解析学）の講義ノートPDF。演習問題と解答付き（大学１年で学ぶ，１変数と多変数の微分積分学のオンライン教科書）" width="70">
+</a>
+
+          <a href="http://language-and-engineering.hatenablog.jp/entry/20140509/UniversityCalculusPDFNoteLinks" class="urllist-title-link entries-access-ranking-title-link  urllist-title entries-access-ranking-title">大学の数学で，微積分（解析学）の講義ノートPDF。演習問題と解答付き（大学１年で学ぶ，１変数と多変数の微分積分学のオンライン教科書）</a>
+
+
+          
+          
+
+                      <div class="urllist-entry-body entries-access-ranking-entry-body">講義ノートの目次へ 大学の初年度で学ぶ，微分・積分（＝解析学…</div>
+      </div>
+    </li>
+  
+    
+    <li class="urllist-item entries-access-ranking-item rank-3">
+      <div class="urllist-item-inner entries-access-ranking-item-inner">
+        
+                      <a class="urllist-image-link entries-access-ranking-image-link" href="http://language-and-engineering.hatenablog.jp/entry/20140615/ElectroMagnetismPDFLectureNotes">
+  <img alt="電磁気学の講義ノートPDF （演習問題と解答つき） 大学の理論物理の教科書" src="https://cdn.image.st-hatena.com/image/square/2a64124bec5f905a052346d26b85f22ac31725c5/backend=imagemagick;height=70;version=1;width=70/http%3A%2F%2Fws-fe.amazon-adsystem.com%2Fwidgets%2Fq%3F_encoding%3DUTF8%26ASIN%3D4320030222%26Format%3D_SL250_%26ID%3DAsinImage%26MarketPlace%3DJP%26ServiceVersion%3D20070822%26WS%3D1%26tag%3Dfugayahogeo-22" class="urllist-image entries-access-ranking-image" title="電磁気学の講義ノートPDF （演習問題と解答つき） 大学の理論物理の教科書" width="70">
+</a>
+
+          <a href="http://language-and-engineering.hatenablog.jp/entry/20140615/ElectroMagnetismPDFLectureNotes" class="urllist-title-link entries-access-ranking-title-link  urllist-title entries-access-ranking-title">電磁気学の講義ノートPDF （演習問題と解答つき） 大学の理論物理の教科書</a>
+
+
+          
+          
+
+                      <div class="urllist-entry-body entries-access-ranking-entry-body">講義ノートの目次へ 大学の物理学で学ぶ電磁気学の，講義ノート…</div>
+      </div>
+    </li>
+  
+    
+    <li class="urllist-item entries-access-ranking-item rank-4">
+      <div class="urllist-item-inner entries-access-ranking-item-inner">
+        
+                      <a class="urllist-image-link entries-access-ranking-image-link" href="http://language-and-engineering.hatenablog.jp/entry/20090516/p1">
+  <img alt=" Excel VBAで，グラフを自動で描画しよう（データ範囲を動的に変える）　＋　ソフトウェアの品質保証について" src="https://cdn.image.st-hatena.com/image/square/46f24e50f6b3f854447785dd424a05bd928a2249/backend=imagemagick;height=70;version=1;width=70/http%3A%2F%2Fws-fe.amazon-adsystem.com%2Fwidgets%2Fq%3F_encoding%3DUTF8%26ASIN%3D4774149977%26Format%3D_SL250_%26ID%3DAsinImage%26MarketPlace%3DJP%26ServiceVersion%3D20070822%26WS%3D1%26tag%3Dfugayahogeo-22" class="urllist-image entries-access-ranking-image" title=" Excel VBAで，グラフを自動で描画しよう（データ範囲を動的に変える）　＋　ソフトウェアの品質保証について" width="70">
+</a>
+
+          <a href="http://language-and-engineering.hatenablog.jp/entry/20090516/p1" class="urllist-title-link entries-access-ranking-title-link  urllist-title entries-access-ranking-title"> Excel VBAで，グラフを自動で描画しよう（データ範囲を動的に変える）　＋　ソフトウェアの品質保証について</a>
+
+
+          
+          
+
+                      <div class="urllist-entry-body entries-access-ranking-entry-body">バッチ・マクロのTOPへ Excel VBAのマクロで，グラフを自動的に…</div>
+      </div>
+    </li>
+  
+    
+    <li class="urllist-item entries-access-ranking-item rank-5">
+      <div class="urllist-item-inner entries-access-ranking-item-inner">
+        
+                      <a class="urllist-image-link entries-access-ranking-image-link" href="http://language-and-engineering.hatenablog.jp/entry/20140620/PDFLectureNotesOnUniversity">
+  <img alt="大学の理工系の講義ノートPDFまとめ （数学・物理・情報・工学）" src="https://cdn.image.st-hatena.com/image/square/71b488595d46a16115fa1df70d31fbb690360f65/backend=imagemagick;height=70;version=1;width=70/http%3A%2F%2Fws-fe.amazon-adsystem.com%2Fwidgets%2Fq%3F_encoding%3DUTF8%26ASIN%3D4781908373%26Format%3D_SL250_%26ID%3DAsinImage%26MarketPlace%3DJP%26ServiceVersion%3D20070822%26WS%3D1%26tag%3Dfugayahogeo-22" class="urllist-image entries-access-ranking-image" title="大学の理工系の講義ノートPDFまとめ （数学・物理・情報・工学）" width="70">
+</a>
+
+          <a href="http://language-and-engineering.hatenablog.jp/entry/20140620/PDFLectureNotesOnUniversity" class="urllist-title-link entries-access-ranking-title-link  urllist-title entries-access-ranking-title">大学の理工系の講義ノートPDFまとめ （数学・物理・情報・工学）</a>
+
+
+          
+          
+
+                      <div class="urllist-entry-body entries-access-ranking-entry-body">大学と大学院の，理工系の講義ノートPDFのまとめ。 PDF形式の教…</div>
+      </div>
+    </li>
+  
+    
+    <li class="urllist-item entries-access-ranking-item rank-6">
+      <div class="urllist-item-inner entries-access-ranking-item-inner">
+        
+                      <a class="urllist-image-link entries-access-ranking-image-link" href="http://language-and-engineering.hatenablog.jp/entry/2016/03/30/%E5%A4%A7%E5%AD%A6%EF%BC%91%E5%B9%B4%E7%94%9F%E3%81%A7%E5%AD%A6%E3%81%B6%E6%95%B0%E5%AD%A6%E3%80%8C%E8%A7%A3%E6%9E%90%E5%AD%A6%E3%83%BB%E5%BE%AE%E7%A9%8D%E5%88%86%E3%80%8D%E3%81%AE">
+  <img alt="大学１年生で学ぶ数学「解析学・微積分」の要点まとめ，勉強法の解説。 入門用に全体像・概要をわかりやすく紹介" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/http_%2F%2Fcdn-ak.f.st-hatena.com%2Fimages%2Ffotolife%2Fl%2Flanguage_and_engineering%2F20160330%2F20160330183043.png" class="urllist-image entries-access-ranking-image" title="大学１年生で学ぶ数学「解析学・微積分」の要点まとめ，勉強法の解説。 入門用に全体像・概要をわかりやすく紹介" width="70">
+</a>
+
+          <a href="http://language-and-engineering.hatenablog.jp/entry/2016/03/30/%E5%A4%A7%E5%AD%A6%EF%BC%91%E5%B9%B4%E7%94%9F%E3%81%A7%E5%AD%A6%E3%81%B6%E6%95%B0%E5%AD%A6%E3%80%8C%E8%A7%A3%E6%9E%90%E5%AD%A6%E3%83%BB%E5%BE%AE%E7%A9%8D%E5%88%86%E3%80%8D%E3%81%AE" class="urllist-title-link entries-access-ranking-title-link  urllist-title entries-access-ranking-title">大学１年生で学ぶ数学「解析学・微積分」の要点まとめ，勉強法の解説。 入門用に全体像・概要をわかりやすく紹介</a>
+
+
+          
+          
+
+                      <div class="urllist-entry-body entries-access-ranking-entry-body">講義ノートの目次へ 大学一年生で学ぶ数学のうち，「解析学の基…</div>
+      </div>
+    </li>
+  
+    
+    <li class="urllist-item entries-access-ranking-item rank-7">
+      <div class="urllist-item-inner entries-access-ranking-item-inner">
+        
+                      <a class="urllist-image-link entries-access-ranking-image-link" href="http://language-and-engineering.hatenablog.jp/entry/20110617/p1">
+  <img alt="Linux上でシェルが実行される仕組みを，体系的に理解しよう　（bash 中級者への道）" src="https://cdn.image.st-hatena.com/image/square/2b1e7a63a721fb427dc6ef04a23bea91493cfbaf/backend=imagemagick;height=70;version=1;width=70/http%3A%2F%2Fws-fe.amazon-adsystem.com%2Fwidgets%2Fq%3F_encoding%3DUTF8%26ASIN%3D4873112540%26Format%3D_SL250_%26ID%3DAsinImage%26MarketPlace%3DJP%26ServiceVersion%3D20070822%26WS%3D1%26tag%3Dfugayahogeo-22" class="urllist-image entries-access-ranking-image" title="Linux上でシェルが実行される仕組みを，体系的に理解しよう　（bash 中級者への道）" width="70">
+</a>
+
+          <a href="http://language-and-engineering.hatenablog.jp/entry/20110617/p1" class="urllist-title-link entries-access-ranking-title-link  urllist-title entries-access-ranking-title">Linux上でシェルが実行される仕組みを，体系的に理解しよう　（bash 中級者への道）</a>
+
+
+          
+          
+
+                      <div class="urllist-entry-body entries-access-ranking-entry-body">バッチのまとめTOPへ bash 初級者は，簡単なコマンドが並んだだ…</div>
+      </div>
+    </li>
+  
+    
+    <li class="urllist-item entries-access-ranking-item rank-8">
+      <div class="urllist-item-inner entries-access-ranking-item-inner">
+        
+                      <a class="urllist-image-link entries-access-ranking-image-link" href="http://language-and-engineering.hatenablog.jp/entry/20110114/p1">
+  <img alt="Tortoise SVNの使い方を覚えてもらうためのページ　（初級，中級）" src="https://cdn.image.st-hatena.com/image/square/053bc5257e459b6260a30bce1446d91f241ec397/backend=imagemagick;height=70;version=1;width=70/http%3A%2F%2Fws.assoc-amazon.jp%2Fwidgets%2Fq%3F_encoding%3DUTF8%26Format%3D_SL160_%26ASIN%3D4873114144%26MarketPlace%3DJP%26ID%3DAsinImage%26WS%3D1%26tag%3Dfugayahogeo-22%26ServiceVersion%3D20070822" class="urllist-image entries-access-ranking-image" title="Tortoise SVNの使い方を覚えてもらうためのページ　（初級，中級）" width="70">
+</a>
+
+          <a href="http://language-and-engineering.hatenablog.jp/entry/20110114/p1" class="urllist-title-link entries-access-ranking-title-link  urllist-title entries-access-ranking-title">Tortoise SVNの使い方を覚えてもらうためのページ　（初級，中級）</a>
+
+
+          
+          
+
+                      <div class="urllist-entry-body entries-access-ranking-entry-body">スキルチェックの目次へ SVN の使い方を覚えてほしい時，この記…</div>
+      </div>
+    </li>
+  
+    
+    <li class="urllist-item entries-access-ranking-item rank-9">
+      <div class="urllist-item-inner entries-access-ranking-item-inner">
+        
+                      <a class="urllist-image-link entries-access-ranking-image-link" href="http://language-and-engineering.hatenablog.jp/entry/20140504/ThermoDynamicsStaticalPhysicsPDFNoteLinks">
+  <img alt="熱力学・統計力学・統計物理学の講義ノート （PDFやオンライン教科書。化学熱力学を含む）" src="https://cdn.image.st-hatena.com/image/square/daf1f0ef8a48fc8095294df8831384ccd673d66d/backend=imagemagick;height=70;version=1;width=70/http%3A%2F%2Fws-fe.amazon-adsystem.com%2Fwidgets%2Fq%3F_encoding%3DUTF8%26ASIN%3D4785320958%26Format%3D_SL250_%26ID%3DAsinImage%26MarketPlace%3DJP%26ServiceVersion%3D20070822%26WS%3D1%26tag%3Dfugayahogeo-22" class="urllist-image entries-access-ranking-image" title="熱力学・統計力学・統計物理学の講義ノート （PDFやオンライン教科書。化学熱力学を含む）" width="70">
+</a>
+
+          <a href="http://language-and-engineering.hatenablog.jp/entry/20140504/ThermoDynamicsStaticalPhysicsPDFNoteLinks" class="urllist-title-link entries-access-ranking-title-link  urllist-title entries-access-ranking-title">熱力学・統計力学・統計物理学の講義ノート （PDFやオンライン教科書。化学熱力学を含む）</a>
+
+
+          
+          
+
+                      <div class="urllist-entry-body entries-access-ranking-entry-body">講義ノートの目次へ 大学の入門レベルの熱力学から，応用レベル…</div>
+      </div>
+    </li>
+  
+    
+    <li class="urllist-item entries-access-ranking-item rank-10">
+      <div class="urllist-item-inner entries-access-ranking-item-inner">
+        
+                      <a class="urllist-image-link entries-access-ranking-image-link" href="http://language-and-engineering.hatenablog.jp/entry/2015/10/22/%E4%BB%8A%E3%81%8B%E3%82%89%EF%BC%93%E5%88%86%E3%81%A7%EF%BC%8CChrome%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%AE%E7%8B%AC%E8%87%AA%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3%E3%82%92%E8%87%AA">
+  <img alt="今から３分で，Chromeブラウザの独自アドオンを自作してみよう （jQueryを使ったクローム拡張機能を，開発および動作テストする入門）" src="https://cdn.image.st-hatena.com/image/square/77bcbf9ae47ac985cb2c2854b4f9ef8d57d8c564/backend=imagemagick;height=70;version=1;width=70/http%3A%2F%2Fws-fe.amazon-adsystem.com%2Fwidgets%2Fq%3F_encoding%3DUTF8%26ASIN%3D4802090048%26Format%3D_SL250_%26ID%3DAsinImage%26MarketPlace%3DJP%26ServiceVersion%3D20070822%26WS%3D1%26tag%3Dfugayahogeo-22" class="urllist-image entries-access-ranking-image" title="今から３分で，Chromeブラウザの独自アドオンを自作してみよう （jQueryを使ったクローム拡張機能を，開発および動作テストする入門）" width="70">
+</a>
+
+          <a href="http://language-and-engineering.hatenablog.jp/entry/2015/10/22/%E4%BB%8A%E3%81%8B%E3%82%89%EF%BC%93%E5%88%86%E3%81%A7%EF%BC%8CChrome%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6%E3%81%AE%E7%8B%AC%E8%87%AA%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3%E3%82%92%E8%87%AA" class="urllist-title-link entries-access-ranking-title-link  urllist-title entries-access-ranking-title">今から３分で，Chromeブラウザの独自アドオンを自作してみよう （jQueryを使ったクローム拡張機能を，開発および動作テストする入門）</a>
+
+
+          
+          
+
+                      <div class="urllist-entry-body entries-access-ranking-entry-body">今から３分で，Chromeブラウザのアドオン（拡張機能）を作ろう…</div>
+      </div>
+    </li>
+  
+</ul>
+</div>
+</div>
+
+    
+      
+
+<div class="hatena-module hatena-module-category">
+  <div class="hatena-module-title">
+    カテゴリー
+  </div>
+  <div class="hatena-module-body">
+    <ul class="hatena-urllist">
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/javascript">
+            javascript (111)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%AA%E3%83%B3%E3%82%AF%E9%9B%86">
+            リンク集 (101)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%A8%80%E8%AA%9E">
+            言語 (78)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/WSH%2FJScript">
+            WSH/JScript (73)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%AC%9B%E7%BE%A9%E3%83%8E%E3%83%BC%E3%83%88">
+            講義ノート (70)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E3%82%B3%E3%83%BC%E3%83%89">
+            動かないコード (68)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Android">
+            Android (50)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0">
+            プログラミング (46)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%95%B0%E5%AD%A6">
+            数学 (44)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%97%E3%83%AD%E3%83%B3%E3%83%97%E3%83%88">
+            コマンドプロンプト (36)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%96%E3%83%A9%E3%82%A6%E3%82%B6">
+            ブラウザ (35)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/java">
+            java (33)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E4%B8%AD%E5%9B%BD%E8%AA%9E">
+            中国語 (32)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%86%E3%82%B9%E3%83%88">
+            テスト (31)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/VBA">
+            VBA (29)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/excel">
+            excel (29)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/windows">
+            windows (27)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E9%96%8B%E7%99%BA">
+            開発 (27)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%89%A9%E7%90%86%E5%AD%A6">
+            物理学 (26)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/IE%E3%81%AE%E8%87%AA%E5%8B%95%E6%93%8D%E4%BD%9C">
+            IEの自動操作 (22)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%A7%81%E7%9A%84%E3%83%A1%E3%83%A2">
+            私的メモ (20)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/siteinfo">
+            siteinfo (20)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/hack">
+            hack (20)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E4%BD%9C%E5%93%81">
+            作品 (20)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/DB">
+            DB (20)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%B3%87%E6%A0%BC">
+            資格 (20)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89">
+            環境構築 (19)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/x%E5%80%8B%E3%81%AEy">
+            x個のy (19)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Ruby%20on%20Rails">
+            Ruby on Rails (19)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/tool">
+            tool (19)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88">
+            ドキュメント (18)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%B0%8F%E3%83%8D%E3%82%BF">
+            小ネタ (18)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E9%80%A3%E8%BC%89%E8%A8%98%E4%BA%8B%E3%81%AE%E7%9B%AE%E6%AC%A1">
+            連載記事の目次 (17)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF">
+            ネットワーク (17)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/html">
+            html (17)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Linux">
+            Linux (17)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Ruby">
+            Ruby (16)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/n%E5%88%86">
+            n分 (16)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%A8%88%E7%AE%97%E6%A9%9F%E7%A7%91%E5%AD%A6">
+            計算機科学 (16)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%B7%A5%E5%AD%A6">
+            工学 (16)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E5%87%A6%E7%90%86">
+            テキスト処理 (15)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/SE">
+            SE (14)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/MS">
+            MS (14)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/sound">
+            sound (12)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3">
+            セキュリティ (12)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B7%E3%83%B3%E3%83%8F%E3%83%A9%E8%AA%9E">
+            シンハラ語 (12)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Eclipse">
+            Eclipse (12)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Selenium">
+            Selenium (11)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%A7%A3%E6%9E%90%E5%AD%A6">
+            解析学 (11)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/SVN">
+            SVN (11)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%AE%9F%E8%A1%8C%E5%8F%AF%E8%83%BD%E3%83%89%E3%82%AD%E3%83%A5%E3%83%A1%E3%83%B3%E3%83%88">
+            実行可能ドキュメント (11)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%B9%BE%E4%BD%95%E5%AD%A6">
+            幾何学 (11)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/PostgreSQL">
+            PostgreSQL (11)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE">
+            正規表現 (11)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%87%E3%82%B6%E3%82%A4%E3%83%B3">
+            デザイン (11)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A2%E3%82%B8%E3%82%A2%E8%AB%B8%E8%AA%9E">
+            アジア諸語 (10)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%AD%A6%E3%81%B3%E6%96%B9">
+            学び方 (10)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/jQuery">
+            jQuery (10)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/bash">
+            bash (10)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A2%E3%83%AB%E3%82%B4%E3%83%AA%E3%82%BA%E3%83%A0">
+            アルゴリズム (9)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E4%BB%95%E4%BA%8B%E8%A1%93">
+            仕事術 (9)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%A8%AD%E8%A8%88">
+            設計 (9)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E8%A7%A3%E6%9E%90%E3%81%AE%E7%B5%90%E6%9E%9C">
+            アクセス解析の結果 (9)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/css">
+            css (9)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%96%E3%83%83%E3%82%AF%E3%83%9E%E3%83%BC%E3%82%AF%E3%83%AC%E3%83%83%E3%83%88">
+            ブックマークレット (9)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A2%E3%82%B9%E3%82%AD%E3%83%BC%E3%82%A2%E3%83%BC%E3%83%88">
+            アスキーアート (9)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/hatena">
+            hatena (9)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%95%B0%E8%AB%96">
+            数論 (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E4%BB%A3%E6%95%B0%E5%AD%A6">
+            代数学 (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%9E%E3%83%AB%E3%83%81%E3%82%B9%E3%83%AC%E3%83%83%E3%83%89">
+            マルチスレッド (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B9%E3%82%AD%E3%83%AB%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF">
+            スキルチェック (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%AA%AD%E3%81%BF%E8%BF%94%E3%81%97%E3%81%9F%E3%81%84">
+            読み返したい (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Apache">
+            Apache (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%83%9E%E3%83%8D%E3%82%B8%E3%83%A1%E3%83%B3%E3%83%88">
+            プロジェクトマネジメント (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/asm">
+            asm (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B0%E3%83%A9%E3%83%95%E6%8F%8F%E7%94%BB">
+            グラフ描画 (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/book">
+            book (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%8F%E3%83%BC%E3%83%89%E3%82%A6%E3%82%A7%E3%82%A2">
+            ハードウェア (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E4%BC%9A%E8%A9%B1%E9%9B%86">
+            会話集 (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%99%82%E9%96%93%E8%A1%93">
+            時間術 (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%95%B0%E5%80%A4%E8%A8%88%E7%AE%97">
+            数値計算 (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%96%87%E5%AD%97%E3%81%A8%E7%99%BA%E9%9F%B3">
+            文字と発音 (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/lifehack">
+            lifehack (8)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%AD%E3%83%BC%E6%93%8D%E4%BD%9C%E3%81%AE%E8%87%AA%E5%8B%95%E5%8C%96">
+            キー操作の自動化 (7)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/UWSC">
+            UWSC (7)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%8B%B1%E8%AA%9E">
+            英語 (7)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%94%E3%83%B3%E3%82%A4%E3%83%B3">
+            ピンイン (7)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E4%B8%AD%E5%9B%BD%E5%B0%91%E6%95%B0%E6%B0%91%E6%97%8F%E3%81%AE%E8%A8%80%E8%AA%9E">
+            中国少数民族の言語 (7)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B9%E3%83%88%E3%83%AC%E3%82%B9">
+            ストレス (7)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Web%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9">
+            Webサービス (7)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%A9%A6%E9%A8%93%E5%95%8F%E9%A1%8C%E3%81%A8%E8%A7%A3%E7%AD%94">
+            試験問題と解答 (7)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%9C%B0%E7%90%86">
+            地理 (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/SQL">
+            SQL (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E9%87%8F%E5%AD%90%E5%8A%9B%E5%AD%A6">
+            量子力学 (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/windows%20vista">
+            windows vista (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/watch">
+            watch (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%81%A5%E5%BA%B7">
+            健康 (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B9%E3%83%9E%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%B3">
+            スマートフォン (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/shortcoding">
+            shortcoding (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%A3%B0%E8%AA%BF">
+            声調 (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/XML">
+            XML (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%A1%E3%83%BC%E3%83%AB%E9%80%81%E5%8F%97%E4%BF%A1">
+            メール送受信 (6)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%8B%95%E7%94%BB">
+            動画 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%85%B1%E6%9C%89%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80">
+            共有フォルダ (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%8F%B0%E6%B9%BE%E8%AA%9E">
+            台湾語 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E9%96%8B%E7%99%BA%E3%83%91%E3%83%A9%E3%83%80%E3%82%A4%E3%83%A0">
+            開発パラダイム (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%86%E3%82%B9%E3%83%88%E3%83%87%E3%83%BC%E3%82%BF">
+            テストデータ (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E9%9F%93%E5%9B%BD%E8%AA%9E">
+            韓国語 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%BA%83%E6%9D%B1%E8%AA%9E">
+            広東語 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%B2%A0%E8%8D%B7%E3%83%86%E3%82%B9%E3%83%88">
+            負荷テスト (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%A9%E3%83%86%E3%83%B3%E8%AA%9E">
+            ラテン語 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%94%BB%E5%83%8F%E5%87%A6%E7%90%86">
+            画像処理 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%B5%8C%E6%B8%88%E5%AD%A6">
+            経済学 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF">
+            フレームワーク (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E4%BA%88%E6%83%B3%E3%82%84%E6%9C%AA%E8%A7%A3%E6%B1%BA%E3%81%AE%E9%9B%A3%E5%95%8F">
+            予想や未解決の難問 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%9A%E3%83%AB%E3%82%B7%E3%83%A3%E8%AA%9E">
+            ペルシャ語 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%98%E3%83%96%E3%83%A9%E3%82%A4%E8%AA%9E">
+            ヘブライ語 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%BF%BB%E8%A8%B3">
+            翻訳 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/C%2B%2B">
+            C++ (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/CMS">
+            CMS (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A2%E3%83%95%E3%83%AA%E3%82%AB%E8%AB%B8%E8%AA%9E">
+            アフリカ諸語 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%81%AF%E3%81%A6%E3%81%AA%E3%82%AB%E3%82%A6%E3%83%B3%E3%82%BF%E3%83%BC">
+            はてなカウンター (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Win32">
+            Win32 (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/HTA">
+            HTA (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/SNS">
+            SNS (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B7%E3%82%B1%E3%83%97%E3%83%AA">
+            シケプリ (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/PHP">
+            PHP (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/.NET">
+            .NET (5)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/iPod">
+            iPod (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E4%B8%8A%E6%B5%B7%E8%AA%9E">
+            上海語 (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/job">
+            job (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Git">
+            Git (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/vbscript">
+            vbscript (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%B5%B1%E8%A8%88%E5%AD%A6">
+            統計学 (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%8C%96%E5%AD%A6">
+            化学 (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%A8%98%E4%BA%8B%E3%81%AE%E3%83%A9%E3%83%B3%E3%82%AD%E3%83%B3%E3%82%B0">
+            記事のランキング (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%A4%96%E5%9B%BD%E8%AA%9E%E5%8B%89%E5%BC%B7%E6%B3%95">
+            外国語勉強法 (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%B4%BB%E7%94%A8%E3%81%A8%E5%A4%89%E5%8C%96%E8%A1%A8">
+            活用と変化表 (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/idea">
+            idea (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%95%99%E3%81%88%E6%96%B9">
+            教え方 (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A2%E3%83%A9%E3%83%93%E3%82%A2%E8%AA%9E">
+            アラビア語 (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%8F%E3%82%A4%E3%83%96%E3%83%AA%E3%83%83%E3%83%89%E3%82%A2%E3%83%97%E3%83%AA">
+            ハイブリッドアプリ (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Android-MVC%20framework">
+            Android-MVC framework (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B2%E3%83%BC%E3%83%A0">
+            ゲーム (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%BF%E3%83%96%E3%83%AC%E3%83%83%E3%83%88">
+            タブレット (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/XUL">
+            XUL (4)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%AE%E3%83%AA%E3%82%B7%E3%83%A3%E8%AA%9E">
+            ギリシャ語 (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%A7%A3%E3%81%8B%E3%81%9B%E3%81%9F%E3%81%84%E5%95%8F%E9%A1%8C">
+            解かせたい問題 (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B9%E3%83%9E%E3%83%9B%E7%94%A8%E3%81%AE%E6%9A%97%E8%A8%98%E5%B8%B3">
+            スマホ用の暗記帳 (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Wifi">
+            Wifi (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%97%A5%E6%9C%AC%E8%AA%9E">
+            日本語 (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/VMWare">
+            VMWare (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%9B%9E%E8%B7%AF">
+            回路 (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/windows%207">
+            windows 7 (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/html5">
+            html5 (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/64bit">
+            64bit (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/excelenium">
+            excelenium (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%9E%E3%83%AC%E3%83%BC%E8%AA%9E">
+            マレー語 (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%94%BB%E9%9D%A2%E3%82%AD%E3%83%A3%E3%83%97%E3%83%81%E3%83%A3">
+            画面キャプチャ (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%A9%E3%82%A4%E3%82%BB%E3%83%B3%E3%82%B9">
+            ライセンス (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%81%82%E3%82%8C%E3%81%B0%E3%81%84%E3%81%84%E3%81%AE%E3%81%AB">
+            あればいいのに (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Word%20VBA">
+            Word VBA (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/windows%20xp">
+            windows xp (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/JUnit">
+            JUnit (3)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/iOS">
+            iOS (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%B5%8C%E5%96%B6">
+            経営 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%A7%A3%E6%9E%90%E7%9A%84%E6%95%B4%E6%95%B0%E8%AB%96">
+            解析的整数論 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/iPad">
+            iPad (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/OpenOffice.org">
+            OpenOffice.org (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B9%E3%83%9A%E3%82%A4%E3%83%B3%E8%AA%9E">
+            スペイン語 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/MySQL">
+            MySQL (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/JScript.NET">
+            JScript.NET (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/PL%2FpgSQL">
+            PL/pgSQL (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E9%87%8D%E8%A6%81%E3%81%AA%E6%83%85%E5%A0%B1">
+            重要な情報 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/windows%208">
+            windows 8 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%92%E3%83%B3%E3%83%87%E3%82%A3%E3%83%BC%E8%AA%9E">
+            ヒンディー語 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A2%E3%83%83%E3%82%AB%E3%83%89%E8%AA%9E">
+            アッカド語 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/GPS%2Fmap">
+            GPS/map (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Graphviz">
+            Graphviz (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/C%E8%A8%80%E8%AA%9E">
+            C言語 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A2%E3%83%A9%E3%83%A0%E8%AA%9E">
+            アラム語 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/tips">
+            tips (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%AE%A2%E5%AE%B6%E8%AA%9E">
+            客家語 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Smarty">
+            Smarty (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E4%BE%8B%E3%81%88%E8%A9%B1">
+            例え話 (2)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/gnuplot">
+            gnuplot (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%84%B3%E7%A7%91%E5%AD%A6">
+            脳科学 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E9%81%8B%E7%94%A8">
+            運用 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E9%96%A2%E6%95%B0%E5%9E%8B%E8%A8%80%E8%AA%9E">
+            関数型言語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9">
+            要件定義 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/C%23">
+            C# (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E8%A8%80%E8%AA%9E%E5%AD%A6">
+            言語学 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/APL">
+            APL (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E9%98%BF%E7%BE%8E%E8%AA%9E">
+            阿美語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%81%E3%83%AF%E3%83%B3%E8%AA%9E">
+            チワン語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E7%A6%8F%E5%BB%BA%E8%AA%9E">
+            福建語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A4%E3%83%99%E3%83%B3%E3%83%88">
+            イベント (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%9F%E3%83%A3%E3%82%AA%E8%AA%9E">
+            ミャオ語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%9E%E3%83%B3%E3%82%AC">
+            マンガ (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A6%E3%82%A4%E3%82%B0%E3%83%AB%E8%AA%9E">
+            ウイグル語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%99%E3%83%88%E3%83%8A%E3%83%A0%E8%AA%9E">
+            ベトナム語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A6%E3%83%AB%E3%83%89%E3%82%A5%E3%83%BC%E8%AA%9E">
+            ウルドゥー語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%A8%E3%82%B8%E3%83%97%E3%83%88%E8%AA%9E">
+            エジプト語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89">
+            クラウド (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B3%E3%83%97%E3%83%88%E8%AA%9E">
+            コプト語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%82%B5%E3%83%9E%E3%83%AA%E3%82%A2%E8%AA%9E">
+            サマリア語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%8F%E3%83%AF%E3%82%A4%E8%AA%9E">
+            ハワイ語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%A2%E3%83%B3%E3%82%B4%E3%83%AB%E8%AA%9E">
+            モンゴル語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%AD%E3%83%9E%E3%83%B3%E3%82%B9%E8%AB%B8%E8%AA%9E">
+            ロマンス諸語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/jQueryMobile">
+            jQueryMobile (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%BD%AE%E5%B7%9E%E8%AA%9E">
+            潮州語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E6%AD%B4%E5%8F%B2">
+            歴史 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Objective-C">
+            Objective-C (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/Oracle">
+            Oracle (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/perl">
+            perl (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/SQLite">
+            SQLite (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/VB.NET">
+            VB.NET (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%8C%BB%E5%AD%A6">
+            医学 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E5%8C%97%E6%AC%A7%E8%AB%B8%E8%AA%9E">
+            北欧諸語 (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/VPS">
+            VPS (1)
+          </a>
+        </li>
+      
+        <li>
+          <a href="http://language-and-engineering.hatenablog.jp/archive/category/%E3%83%81%E3%83%99%E3%83%83%E3%83%88%E8%AA%9E">
+            チベット語 (1)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+    
+      
+<div class="hatena-module hatena-module-html">
+  <div class="hatena-module-body">
+    <div style="position:relative;left:0px;">
+
+<iframe src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/cm.html" width="300" height="250" scrolling="no" border="0" marginwidth="0" style="border:none;" frameborder="0"></iframe>
+
+</div>
+  </div>
+</div>
+
+    
+      <div class="hatena-module hatena-module-recent-entries ">
+  <div class="hatena-module-title">
+    <a href="http://language-and-engineering.hatenablog.jp/archive">
+      最新記事
+    </a>
+  </div>
+  <div class="hatena-module-body">
+    <ul class="recent-entries hatena-urllist ">
+  
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+        
+          
+          <a href="http://language-and-engineering.hatenablog.jp/entry/2017/02/23/Excel%E3%83%96%E3%83%83%E3%82%AF%E5%86%85%E3%81%AE%E5%85%A8%E3%82%B7%E3%83%BC%E3%83%88%E3%82%92%EF%BC%8C%EF%BC%91%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%9A%E3%81%A4%E4%BF%9D%E5%AD%98" class="urllist-title-link recent-entries-title-link  urllist-title recent-entries-title">Excelブック内の全シートを，１ファイルずつに分けて一括保存するバッチ （シート単位で自動ファイル分割し，１シートごとに一斉ファイル出力）</a>
+
+
+          
+          
+
+                </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+        
+          
+          <a href="http://language-and-engineering.hatenablog.jp/entry/2016/06/05/JavaScript%E3%81%AE%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E3%82%B3%E3%83%BC%E3%83%89%EF%BC%88%E4%B8%AD%E7%B4%9A%E7%B7%A8%EF%BC%89%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%82%92while%E5%86%85" class="urllist-title-link recent-entries-title-link  urllist-title recent-entries-title">JavaScriptの動かないコード（中級編）正規表現をwhile内で定義すると無限ループで固まるエラー （execでグローバルなマッチだと，処理がフリーズ）</a>
+
+
+          
+          
+
+                </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+        
+          
+          <a href="http://language-and-engineering.hatenablog.jp/entry/2016/06/04/JavaScript%E3%81%AE%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E3%82%B3%E3%83%BC%E3%83%89%EF%BC%88%E4%B8%AD%E7%B4%9A%E7%B7%A8%EF%BC%89_%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%AE%E6%8B%AC" class="urllist-title-link recent-entries-title-link  urllist-title recent-entries-title">JavaScriptの動かないコード（中級編） 正規表現の括弧キャプチャを，グローバルで繰り返しmatchできない （gオプションを付けると部分文字列の抽出が無効）</a>
+
+
+          
+          
+
+                </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+        
+          
+          <a href="http://language-and-engineering.hatenablog.jp/entry/2016/04/12/JavaScript%E3%81%AE%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84%E3%82%B3%E3%83%BC%E3%83%89%EF%BC%88%E4%B8%AD%E7%B4%9A%E7%B7%A8%EF%BC%89_for%E3%83%AB%E3%83%BC%E3%83%97%E5%86%85%E3%81%A7%E3%82%A4" class="urllist-title-link recent-entries-title-link  urllist-title recent-entries-title">JavaScriptの動かないコード（中級編） forループ内でイベントリスナを定義したら，動作がおかしい。（クロージャや関数オブジェクトの性質を理解していないために発生するエラー）</a>
+
+
+          
+          
+
+                </div>
+    </li>
+  
+    
+    <li class="urllist-item recent-entries-item">
+      <div class="urllist-item-inner recent-entries-item-inner">
+        
+          
+          <a href="http://language-and-engineering.hatenablog.jp/entry/2016/03/30/%E5%A4%A7%E5%AD%A6%EF%BC%91%E5%B9%B4%E7%94%9F%E3%81%A7%E5%AD%A6%E3%81%B6%E6%95%B0%E5%AD%A6%E3%80%8C%E8%A7%A3%E6%9E%90%E5%AD%A6%E3%83%BB%E5%BE%AE%E7%A9%8D%E5%88%86%E3%80%8D%E3%81%AE" class="urllist-title-link recent-entries-title-link  urllist-title recent-entries-title">大学１年生で学ぶ数学「解析学・微積分」の要点まとめ，勉強法の解説。 入門用に全体像・概要をわかりやすく紹介</a>
+
+
+          
+          
+
+                </div>
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+    
+      
+
+<div class="hatena-module hatena-module-archive" data-archive-type="default" data-archive-url="http://language-and-engineering.hatenablog.jp/archive">
+  <div class="hatena-module-title">
+    <a href="http://language-and-engineering.hatenablog.jp/archive">月別アーカイブ</a>
+  </div>
+  <div class="hatena-module-body">
+  
+
+  
+    
+    
+      <ul class="hatena-urllist">
+        
+          <li class="archive-module-year archive-module-year-hidden" data-year="2017">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2017" class="archive-module-year-title">
+              2017 (1)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2017/2" class="archive-module-month-title">
+                    2017 / 2 (1)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          <li class="archive-module-year archive-module-year-hidden" data-year="2016">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2016" class="archive-module-year-title">
+              2016 (5)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2016/6" class="archive-module-month-title">
+                    2016 / 6 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2016/4" class="archive-module-month-title">
+                    2016 / 4 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2016/3" class="archive-module-month-title">
+                    2016 / 3 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2016/1" class="archive-module-month-title">
+                    2016 / 1 (1)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          <li class="archive-module-year archive-module-year-hidden" data-year="2015">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2015" class="archive-module-year-title">
+              2015 (24)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2015/10" class="archive-module-month-title">
+                    2015 / 10 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2015/9" class="archive-module-month-title">
+                    2015 / 9 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2015/8" class="archive-module-month-title">
+                    2015 / 8 (3)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2015/7" class="archive-module-month-title">
+                    2015 / 7 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2015/6" class="archive-module-month-title">
+                    2015 / 6 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2015/5" class="archive-module-month-title">
+                    2015 / 5 (5)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2015/4" class="archive-module-month-title">
+                    2015 / 4 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2015/3" class="archive-module-month-title">
+                    2015 / 3 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2015/2" class="archive-module-month-title">
+                    2015 / 2 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2015/1" class="archive-module-month-title">
+                    2015 / 1 (3)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          <li class="archive-module-year archive-module-year-hidden" data-year="2014">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2014" class="archive-module-year-title">
+              2014 (117)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/12" class="archive-module-month-title">
+                    2014 / 12 (5)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/11" class="archive-module-month-title">
+                    2014 / 11 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/10" class="archive-module-month-title">
+                    2014 / 10 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/9" class="archive-module-month-title">
+                    2014 / 9 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/8" class="archive-module-month-title">
+                    2014 / 8 (5)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/7" class="archive-module-month-title">
+                    2014 / 7 (20)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/6" class="archive-module-month-title">
+                    2014 / 6 (30)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/5" class="archive-module-month-title">
+                    2014 / 5 (23)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/4" class="archive-module-month-title">
+                    2014 / 4 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/3" class="archive-module-month-title">
+                    2014 / 3 (5)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/2" class="archive-module-month-title">
+                    2014 / 2 (7)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2014/1" class="archive-module-month-title">
+                    2014 / 1 (14)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          <li class="archive-module-year archive-module-year-hidden" data-year="2013">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2013" class="archive-module-year-title">
+              2013 (67)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/12" class="archive-module-month-title">
+                    2013 / 12 (3)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/11" class="archive-module-month-title">
+                    2013 / 11 (5)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/10" class="archive-module-month-title">
+                    2013 / 10 (3)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/9" class="archive-module-month-title">
+                    2013 / 9 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/8" class="archive-module-month-title">
+                    2013 / 8 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/7" class="archive-module-month-title">
+                    2013 / 7 (8)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/6" class="archive-module-month-title">
+                    2013 / 6 (5)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/5" class="archive-module-month-title">
+                    2013 / 5 (3)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/4" class="archive-module-month-title">
+                    2013 / 4 (6)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/3" class="archive-module-month-title">
+                    2013 / 3 (20)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/2" class="archive-module-month-title">
+                    2013 / 2 (3)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2013/1" class="archive-module-month-title">
+                    2013 / 1 (8)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          <li class="archive-module-year archive-module-year-hidden" data-year="2012">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2012" class="archive-module-year-title">
+              2012 (66)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/12" class="archive-module-month-title">
+                    2012 / 12 (7)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/11" class="archive-module-month-title">
+                    2012 / 11 (7)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/10" class="archive-module-month-title">
+                    2012 / 10 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/9" class="archive-module-month-title">
+                    2012 / 9 (5)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/8" class="archive-module-month-title">
+                    2012 / 8 (3)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/7" class="archive-module-month-title">
+                    2012 / 7 (10)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/6" class="archive-module-month-title">
+                    2012 / 6 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/5" class="archive-module-month-title">
+                    2012 / 5 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/4" class="archive-module-month-title">
+                    2012 / 4 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/3" class="archive-module-month-title">
+                    2012 / 3 (9)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/2" class="archive-module-month-title">
+                    2012 / 2 (10)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2012/1" class="archive-module-month-title">
+                    2012 / 1 (5)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          <li class="archive-module-year" data-year="2011">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2011" class="archive-module-year-title">
+              2011 (74)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/12" class="archive-module-month-title">
+                    2011 / 12 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/11" class="archive-module-month-title">
+                    2011 / 11 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/10" class="archive-module-month-title">
+                    2011 / 10 (8)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/9" class="archive-module-month-title">
+                    2011 / 9 (21)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/8" class="archive-module-month-title">
+                    2011 / 8 (12)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/7" class="archive-module-month-title">
+                    2011 / 7 (9)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/6" class="archive-module-month-title">
+                    2011 / 6 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/5" class="archive-module-month-title">
+                    2011 / 5 (1)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/4" class="archive-module-month-title">
+                    2011 / 4 (3)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/3" class="archive-module-month-title">
+                    2011 / 3 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/2" class="archive-module-month-title">
+                    2011 / 2 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2011/1" class="archive-module-month-title">
+                    2011 / 1 (5)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          <li class="archive-module-year archive-module-year-hidden" data-year="2010">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2010" class="archive-module-year-title">
+              2010 (61)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/12" class="archive-module-month-title">
+                    2010 / 12 (7)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/11" class="archive-module-month-title">
+                    2010 / 11 (9)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/10" class="archive-module-month-title">
+                    2010 / 10 (6)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/9" class="archive-module-month-title">
+                    2010 / 9 (10)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/8" class="archive-module-month-title">
+                    2010 / 8 (6)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/7" class="archive-module-month-title">
+                    2010 / 7 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/6" class="archive-module-month-title">
+                    2010 / 6 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/5" class="archive-module-month-title">
+                    2010 / 5 (3)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/4" class="archive-module-month-title">
+                    2010 / 4 (3)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/3" class="archive-module-month-title">
+                    2010 / 3 (6)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/2" class="archive-module-month-title">
+                    2010 / 2 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2010/1" class="archive-module-month-title">
+                    2010 / 1 (3)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          <li class="archive-module-year archive-module-year-hidden" data-year="2009">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2009" class="archive-module-year-title">
+              2009 (74)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/12" class="archive-module-month-title">
+                    2009 / 12 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/11" class="archive-module-month-title">
+                    2009 / 11 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/10" class="archive-module-month-title">
+                    2009 / 10 (2)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/9" class="archive-module-month-title">
+                    2009 / 9 (7)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/8" class="archive-module-month-title">
+                    2009 / 8 (3)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/7" class="archive-module-month-title">
+                    2009 / 7 (11)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/6" class="archive-module-month-title">
+                    2009 / 6 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/5" class="archive-module-month-title">
+                    2009 / 5 (4)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/4" class="archive-module-month-title">
+                    2009 / 4 (6)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/3" class="archive-module-month-title">
+                    2009 / 3 (9)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/2" class="archive-module-month-title">
+                    2009 / 2 (9)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2009/1" class="archive-module-month-title">
+                    2009 / 1 (13)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          <li class="archive-module-year archive-module-year-hidden" data-year="2008">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2008" class="archive-module-year-title">
+              2008 (107)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2008/12" class="archive-module-month-title">
+                    2008 / 12 (10)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2008/11" class="archive-module-month-title">
+                    2008 / 11 (19)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2008/10" class="archive-module-month-title">
+                    2008 / 10 (35)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2008/9" class="archive-module-month-title">
+                    2008 / 9 (32)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2008/8" class="archive-module-month-title">
+                    2008 / 8 (6)
+                  </a>
+                </li>
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2008/1" class="archive-module-month-title">
+                    2008 / 1 (5)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+          <li class="archive-module-year archive-module-year-hidden" data-year="2007">
+            <div class="archive-module-button">
+              <span class="archive-module-hide-button">▼</span>
+              <span class="archive-module-show-button">▶</span>
+            </div>
+            <a href="http://language-and-engineering.hatenablog.jp/archive/2007" class="archive-module-year-title">
+              2007 (1)
+            </a>
+            <ul class="archive-module-months">
+              
+                <li class="archive-module-month">
+                  <a href="http://language-and-engineering.hatenablog.jp/archive/2007/1" class="archive-module-month-title">
+                    2007 / 1 (1)
+                  </a>
+                </li>
+              
+            </ul>
+          </li>
+        
+      </ul>
+    
+  
+
+
+</div>
+</div>
+
+    
+    
+  </div>
+</aside>
+
+
+  </div>
+</div>
+
+
+
+
+        
+
+        
+
+      </div>
+    </div>
+    
+<footer id="footer" data-brand="hatenablog">
+  <div id="footer-inner">
+    
+      <div style="display: block !important;" class="guest-footer js-guide-register test-blogs-register-guide" data-action="guide-register">
+  <div class="guest-footer-content">
+    <h3>はてなブログをはじめよう！</h3>
+    <p>language_and_engineeringさんは、はてなブログを使っています。あなたもはてなブログをはじめてみませんか？</p>
+    <div class="guest-footer-btn-container">
+      <div class="guest-footer-btn">
+        <a class="btn btn-register" href="http://blog.hatena.ne.jp/register?via=200227" target="_blank">はてなブログをはじめる（無料）</a>
+      </div>
+      <div class="guest-footer-btn">
+        <a href="http://hatenablog.com/guide" target="_blank">はてなブログとは</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+    <address class="footer-address">
+      <a href="http://language-and-engineering.hatenablog.jp/">
+        <img src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/blog-icon-noimage.png" width="16" height="16" alt="主に言語とシステム開発に関して">
+        <span class="footer-address-name">主に言語とシステム開発に関して</span>
+      </a>
+    </address>
+    <p class="services">
+      Powered by <a href="http://hatenablog.com/">Hatena Blog</a>
+      |
+        <a href="https://blog.hatena.ne.jp/-/abuse_report?target_url=http%3A%2F%2Flanguage-and-engineering.hatenablog.jp%2Fentry%2F20110820%2Fp1" class="report-abuse-link test-report-abuse-link" target="_blank">ブログを報告する</a>
+    </p>
+  </div>
+</footer>
+
+
+    
+
+    
+
+    
+      <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/bSTT5dUx9MY.html" style="border: none;"></iframe><iframe name="fb_xdm_frame_https" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/bSTT5dUx9MY(1).html" style="border: none;"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&appId=719729204785177&version=v2.7";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    
+    
+
+<div class="quote-box">
+  <div class="tooltip-quote tooltip-quote-star">
+    <i class="blogicon-star" title="引用スターをつける"></i>
+  </div>
+  <div class="tooltip-quote tooltip-quote-stock" style="display: block;">
+    <i class="blogicon-quote" title="引用をストック"></i>
+  </div>
+  <div class="tooltip-quote tooltip-quote-tweet js-tooltip-quote-tweet">
+    <a class="js-tweet-quote" target="_blank" data-track-name="quote-tweet" data-track-once=""><i class="blogicon-twitter" title="引用してツイートする"></i></a>
+  </div>
+</div>
+
+<div class="message-box" id="quote-star-message-box" style="display: none; position: absolute;">
+  スターをつけました
+</div>
+
+<div class="quote-stock-panel" id="quote-stock-message-box" style="position: absolute; z-index: 3000">
+  <div class="message-box" id="quote-stock-succeeded-message" style="display: none">
+    <p>引用をストックしました</p>
+    <button class="btn btn-primary" id="quote-stock-show-editor-button" data-track-name="curation-quote-edit-button">ストック一覧を見る</button>
+    <button class="btn quote-stock-close-message-button">閉じる</button>
+  </div>
+
+  <div class="message-box" id="quote-login-required-message" style="display: none">
+    <p>引用するにはまずログインしてください</p>
+    <button class="btn btn-primary" id="quote-login-button">ログイン</button>
+    <button class="btn quote-stock-close-message-button">閉じる</button>
+  </div>
+
+  <div class="error-box" id="quote-stock-failed-message" style="display: none">
+    <p>引用をストックできませんでした。再度お試しください</p>
+    <button class="btn quote-stock-close-message-button">閉じる</button>
+  </div>
+
+  <div class="error-box" id="unstockable-quote-message-box" style="display: none; position: absolute; z-index: 3000;">
+    <p>限定公開記事のため引用できません。</p>
+  </div>
+</div>
+
+<script type="x-underscore-template" id="js-requote-button-template">
+  <div class="requote-button js-requote-button">
+    <button class="requote-button-btn tipsy-top" title="引用する"><i class="blogicon-quote"></i></button>
+  </div>
+</script>
+
+
+
+    
+    <div id="hidden-subscribe-button" style="display: none;">
+      <div class="hatena-follow-button-box btn-subscribe js-hatena-follow-button-box">
+
+  <a href="http://language-and-engineering.hatenablog.jp/entry/20110820/p1#" class="hatena-follow-button js-hatena-follow-button unsubscribing">
+    <span class="subscribing">
+      <span class="foreground">読者です</span>
+      <span class="background">読者をやめる</span>
+    </span>
+    <span class="unsubscribing" data-track-name="profile-widget-subscribe-button" data-track-once="">
+      <span class="foreground">読者になる</span>
+      <span class="background">読者になる</span>
+    </span>
+  </a>
+  <div class="subscription-count-box js-subscription-count-box" style="display: block;">
+    <i></i>
+    <u></u>
+    <span class="subscription-count js-subscription-count">437</span>
+  </div>
+</div>
+
+    </div>
+
+    
+  <script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/widgets.js.ダウンロード"></script>
+
+<script src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/platform.js.ダウンロード" async="" defer="" gapi_processed="true">
+  { lang: 'ja', "parsetags": "explicit" }
+</script>
+<script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/bookmark_button.js.ダウンロード" charset="utf-8" async="async"></script>
+
+
+
+  <script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/react-with-addons.min.js.ダウンロード"></script>
+  <script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/react-dom.min.js.ダウンロード"></script>
+
+
+<script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/jquery.min.js.ダウンロード"></script>
+<script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/jquery-ui.1.10.0.custom.min.js.ダウンロード"></script>
+<script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/jquery.flot.js.ダウンロード"></script>
+<script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/jquery.flot.time.js.ダウンロード"></script>
+
+
+
+
+<script id="hatenablog-js" data-env="production" type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/hatenablog.js.ダウンロード" crossorigin="anonymous"></script><iframe id="google_osd_static_frame_383686069128" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/saved_resource(7).html"></iframe><div style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; display: none;"></div>
+<script type="text/javascript" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/texts-ja.js.ダウンロード"></script>
+
+
+  <script type="text/javascript">Hatena.Diary.GlobalHeader.init()</script>
+
+
+<script src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/api.js.ダウンロード" async="" defer=""></script>
+
+
+
+
+    
+
+    
+
+
+
+
+
+    <script>
+  var valve = window.valve || [];
+  valve.push(function (v) {
+    v.sealDFPSlots();
+  });
+</script>
+
+  
+
+
+<iframe scrolling="no" frameborder="0" allowtransparency="true" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/widget_iframe.7a5ca036ea5299f1d2ebb2234731e35e.html" title="Twitter settings iframe" style="display: none;"></iframe><div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button type="button" id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none; max-width: none;"></div></div><div style="top: -9999px; z-index: -9999;"></div><iframe id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;" title="Twitter analytics iframe" src="./Linux上にSambaで共有フォルダを作り，Windowsから開発環境として利用しよう （環境構成のわかりやすい図解付き） - 主に言語とシステム開発に関して_files/saved_resource(8).html"></iframe></body></html>
